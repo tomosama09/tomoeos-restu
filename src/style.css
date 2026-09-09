@@ -857,24 +857,32 @@ body.boot-phase #desktop-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, #3a7bd5 0%, #2056a8 100%);
+  background-image: linear-gradient(rgba(0, 28, 70, 0.32), rgba(0, 16, 48, 0.46)), url('/images/wallpaper.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 .aero-logon-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 18px;
-  padding: 36px 44px;
-  box-shadow: 0 24px 60px rgba(0, 20, 60, 0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+  gap: 11px;
+  background: transparent;
+  min-width: 310px;
 }
-.aero-logon-name { color: #fff; font-size: 20px; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.aero-logon-user { display: flex; align-items: center; gap: 15px; }
+.aero-logon-avatar { width: 76px; height: 76px; object-fit: cover; border-radius: 4px; border: 2px solid rgba(255,255,255,0.82); box-shadow: 0 2px 8px rgba(0,0,0,0.35); background: #d9ecff; }
+.aero-logon-user-copy { min-width: 130px; }
+.aero-logon-name { color: #fff; font-size: 21px; font-weight: 400; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
 .aero-logon-tagline { color: rgba(255,255,255,0.85); font-size: 12px; }
-.aero-logon-enter { background: linear-gradient(to bottom, #7fb2f5 0%, #3a82d0 100%); color: #fff; font-weight: 700; padding: 8px 26px; }
+.aero-logon-enter { margin-top: 9px; min-width: 96px; padding: 7px 22px; color: #fff; font-weight: 700; background: linear-gradient(to bottom, #81c9fa 0%, #2777c5 100%); }
+.aero-logon-enter:hover { background: linear-gradient(to bottom, #a2dcff 0%, #398ddd 100%); }
+.aero-logon-footer { position: absolute; left: 28px; right: 28px; bottom: 24px; display: flex; align-items: center; justify-content: center; }
+.aero-logon-brand { color: rgba(255,255,255,0.94); font-size: 18px; font-weight: 300; letter-spacing: 2px; text-shadow: 0 2px 5px rgba(0,0,0,0.65); }
+.aero-logon-power { width: 36px; height: 30px; border: 1px solid rgba(255,255,255,0.38); border-radius: 3px; color: #fff; background: rgba(0,35,100,0.4); font-size: 19px; line-height: 1; cursor: pointer; }
+.aero-logon-power:hover { background: rgba(0,35,100,0.65); }
+.aero-logon-footer .aero-logon-power { position: absolute; right: 0; }
 
 .aero-shutdown-overlay {
   position: fixed;
@@ -1017,6 +1025,13 @@ body.boot-phase #desktop-icons {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
 }
 
+.desktop-item-selected {
+  outline: 1px dotted rgba(255,255,255,.95);
+  outline-offset: 3px;
+  border-radius: 4px;
+  background: rgba(45,130,220,.28);
+}
+
 /* Frutiger Aero desktop utilities */
 .desktop-gadgets-shell { padding:7px; border:1px solid rgba(255,255,255,.78); border-radius:14px; background:linear-gradient(135deg,rgba(12,106,178,.42),rgba(168,235,255,.22)); backdrop-filter:blur(18px) saturate(170%); -webkit-backdrop-filter:blur(18px) saturate(170%); box-shadow:inset 0 1px 2px rgba(255,255,255,.9),0 12px 28px rgba(0,40,100,.28); }
 .desktop-gadgets-header { display:flex; align-items:center; gap:6px; padding:0 5px 6px; color:rgba(255,255,255,.9); font-size:9px; font-weight:800; letter-spacing:.16em; text-shadow:0 1px 3px rgba(0,30,80,.7); }
@@ -1036,6 +1051,16 @@ body.boot-phase #desktop-icons {
 .desktop-weather-temp { font-size:21px; font-weight:300; line-height:1; text-shadow:0 2px 4px rgba(0,30,80,.5); }
 .desktop-weather-place { margin-top:4px; color:rgba(255,255,255,.78); font-size:10px; }
 .desktop-weather-glint { position:absolute; right:10px; top:-8px; color:rgba(255,255,255,.7); font-size:40px; }
+
+/* YouTube connection state */
+.player-loading { position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; color:#dff5ff; background:rgba(5,18,32,.7); font-size:12px; text-shadow:0 1px 3px #000; }
+.player-loading.hidden { display:none; }
+.player-spinner { width:24px; height:24px; border:3px solid rgba(255,255,255,.32); border-top-color:#82d9ff; border-radius:50%; animation:playerSpin .8s linear infinite; }
+.player-retry { padding:4px 13px; border:1px solid rgba(255,255,255,.75); border-radius:999px; background:linear-gradient(#63caff,#1476c0); color:#fff; font-size:11px; font-weight:700; cursor:pointer; box-shadow:inset 0 1px rgba(255,255,255,.8),0 2px 5px rgba(0,0,0,.3); }
+.player-retry:hover { background:linear-gradient(#9be2ff,#258bd2); }
+.player-loading:not(.stalled) .player-retry { opacity:.72; }
+.player-loading.stalled { background:rgba(5,18,32,.82); }
+@keyframes playerSpin { to { transform:rotate(360deg); } }
 
 /* Notepad document tabs */
 .notepad-tabs { overflow-x: auto; scrollbar-width: none; }

@@ -52,14 +52,14 @@ function bringToFront(win: HTMLDivElement) {
 // Window -> taskbar metadata (label + icon)
 const APP_META: Record<string, { label: string; icon: string }> = {
   'win-player': { label: 'Tomoe Player', icon: '/icons/fci-film.svg' },
-  'win-ie': { label: 'Internet Explorer', icon: '/icons/fci-display.svg' },
+  'win-ie': { label: 'Internet Explorer', icon: '/icons/internet-explorer.svg' },
   'win-explorer': { label: 'Restu Explorer', icon: '/icons/fci-folder.svg' },
   'win-notepad': { label: 'Welcome.txt - Notepad', icon: '/icons/welcome-note.svg' },
   'win-games': { label: 'Games', icon: '/icons/games.webp' },
   'win-photo': { label: 'Windows Photo Viewer', icon: '/icons/folder-pics.webp' },
   'win-calc': { label: 'Calculator', icon: '/icons/calc.webp' },
   'win-bin': { label: 'Recycle Bin', icon: '/icons/bin.webp' },
-  'win-cmd': { label: 'Command Prompt', icon: '/icons/fci-display.svg' },
+  'win-cmd': { label: 'Command Prompt', icon: '/icons/command-prompt.svg' },
 };
 const taskbarApps = document.getElementById('taskbar-apps');
 
@@ -910,12 +910,20 @@ document.addEventListener('contextmenu', (e) => {
     { text: 'Refresh', fn: () => location.reload() },
     { divider: true },
     { text: 'Run...', fn: () => { openRunDialog(); } },
+    { text: 'New Note', fn: () => addStickyNote() },
     { text: 'Open Videos', fn: () => openExplorerNav('videos') },
     { text: 'Open Explorer', fn: () => openWindow('win-explorer') },
     { text: 'Open Notepad', fn: () => openWindow('win-notepad') },
     { divider: true },
     { text: 'Close All Windows', fn: () => confirmCloseAllWindows() },
-    { text: 'Personalize (Aero theme)', disabled: true },
+    { text: 'Personalize (Aero theme)', fn: () => openDialog({
+      title: 'Personalization',
+      icon: '/icons/fci-idea.svg',
+      body: 'Aero Glass theme is active for TomoeOS.',
+      okText: 'Close',
+      cancelText: null,
+      onOk: () => {},
+    }) },
   ];
   items.forEach(entry => {
     if ('divider' in entry) {
@@ -943,15 +951,23 @@ document.addEventListener('contextmenu', (e) => {
 
 document.addEventListener('click', hideContextMenu);
 
-// Escape closes context menu
+// Escape closes context menu and other transient UI.
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') hideContextMenu();
+  if (e.key === 'Escape') {
+    hideContextMenu();
+    startMenu?.classList.remove('open');
+    clockFlyout?.classList.add('hidden');
+    closeDialog();
+  }
 });
 
-// Keyboard shortcuts: Win key = Start, Ctrl+Esc = Start, Alt+Tab = next window
+// Keyboard shortcuts: Win key = Start, Win+D = Show Desktop, Ctrl+Esc = Start.
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Meta') {
     if (e.type === 'keydown') toggleStartMenu();
+  } else if (e.metaKey && e.key.toLowerCase() === 'd') {
+    e.preventDefault();
+    toggleShowDesktop();
   } else if (e.ctrlKey && e.key === 'Escape') {
     e.preventDefault();
     toggleStartMenu();
@@ -1030,15 +1046,26 @@ function showLogonScreen() {
     logon.className = 'aero-logon-screen';
     logon.innerHTML = `
       <div class="aero-logon-card">
-        <div class="aero-logon-name">Administrator</div>
-        <div class="aero-logon-tagline">Welcome</div>
-        <button class="aero-jelly-btn aero-logon-enter" id="logon-enter-btn">Login</button>
+        <div class="aero-logon-user">
+          <img class="aero-logon-avatar" src="/icons/logon-avatar.svg" alt="Generic Administrator avatar" />
+          <div class="aero-logon-user-copy">
+            <div class="aero-logon-name">Administrator</div>
+            <div class="aero-logon-tagline">Welcome</div>
+          </div>
+        </div>
+        <button class="aero-jelly-btn aero-logon-enter" id="logon-enter-btn" type="button">Login</button>
+      </div>
+      <div class="aero-logon-footer">
+        <div class="aero-logon-brand">TomoeOS</div>
+        <button class="aero-logon-power" type="button" aria-label="Power">⏻</button>
       </div>`;
     document.body.appendChild(logon);
-    logon.querySelector('#logon-enter-btn')?.addEventListener('click', () => {
+    const login = () => {
       hideLogonScreen();
       unlockAudio();
-    });
+    };
+    logon.querySelector('#logon-enter-btn')?.addEventListener('click', login);
+    logon.querySelector('.aero-logon-power')?.addEventListener('click', shutdownOS);
   } else {
     logon.style.display = 'flex';
     logon.querySelector('.aero-logon-card')?.classList.remove('aero-logon-leave');
@@ -1228,26 +1255,41 @@ function createStickyNote(data: StickyNoteData): HTMLElement {
   return note;
 }
 
+function addStickyNote() {
+  const count = document.querySelectorAll('.desktop-sticky').length;
+  const created = createStickyNote({
+    id: `note-${Date.now()}`,
+    title: 'New Note',
+    body: 'Write something here.',
+    email: '',
+    left: Math.min(window.innerWidth - 240, 80 + count * 24),
+    top: Math.min(window.innerHeight - 180, 100 + count * 24),
+    rotation: count % 2 ? -1 : 1,
+  });
+  (created.querySelector('[data-sticky-title]') as HTMLElement | null)?.focus();
+  saveStickyNotes();
+}
+
 function bindStickyNote(note: HTMLElement) {
   note.querySelector('[data-sticky-close]')?.addEventListener('click', (e) => {
     e.stopPropagation();
     note.remove();
+    if (!document.querySelector('.desktop-sticky')) {
+      createStickyNote({
+        id: `note-${Date.now()}`,
+        title: 'Hiring / Production',
+        body: 'Open for freelance projects and institutional contracts.',
+        email: 'rstt.tomo@gmail.com',
+        left: Math.max(24, window.innerWidth - 24 - 224),
+        top: 290,
+        rotation: 1,
+      });
+    }
     saveStickyNotes();
   });
   note.querySelector('[data-sticky-add]')?.addEventListener('click', (e) => {
     e.stopPropagation();
-    const count = document.querySelectorAll('.desktop-sticky').length;
-    const created = createStickyNote({
-      id: `note-${Date.now()}`,
-      title: 'New Note',
-      body: 'Write something here.',
-      email: '',
-      left: Math.min(window.innerWidth - 240, 80 + count * 24),
-      top: Math.min(window.innerHeight - 180, 100 + count * 24),
-      rotation: count % 2 ? -1 : 1,
-    });
-    (created.querySelector('[data-sticky-title]') as HTMLElement | null)?.focus();
-    saveStickyNotes();
+    addStickyNote();
   });
   note.querySelectorAll<HTMLElement>('[contenteditable="true"]').forEach((field) => {
     field.addEventListener('input', saveStickyNotes);
@@ -1290,8 +1332,20 @@ function initStickyNotes() {
   if (saved) {
     try {
       const notes = JSON.parse(saved) as StickyNoteData[];
-      initial.remove();
-      notes.forEach(createStickyNote);
+      if (Array.isArray(notes) && notes.length > 0) {
+        initial.remove();
+        notes.forEach((note) => {
+          if (note.id === 'hiring') {
+            note.left = Math.max(24, window.innerWidth - 24 - 224);
+            note.top = 290;
+          }
+          createStickyNote(note);
+        });
+        saveStickyNotes();
+      } else {
+        bindStickyNote(initial);
+        saveStickyNotes();
+      }
     } catch {
       bindStickyNote(initial);
     }
@@ -1328,8 +1382,18 @@ function showBiosScreen() {
     bios.innerHTML = `
       <pre>TomoeOS BIOS v1.0</pre>
       <pre>Copyright (C) Restu Utomo</pre>
+      <pre>POST : Power-on self-test .................. OK</pre>
       <pre>CPU : TomoeKernel OK</pre>
-      <pre>Memory Test : 4096 MB OK</pre>`;
+      <pre>Memory Test : 4096 MB OK</pre>
+      <pre>Graphics : AeroGlass Adapter ............... OK</pre>
+      <pre>Storage : Portfolio SSD .................... OK</pre>
+      <pre>Audio : WebAudio Controller ................ READY</pre>
+      <pre>Network : Media Link ........................ READY</pre>
+      <pre>Input : Keyboard / Pointer .................. OK</pre>
+      <pre>Assets : Wallpaper / Icons .................. OK</pre>
+      <pre>Library : 21 visual records ................. OK</pre>
+      <pre>System Check : All systems ready</pre>
+      <pre>Boot Device : TOMOEOS_SYSTEM</pre>`;
     document.body.appendChild(bios);
   } else {
     bios.style.display = 'flex';
@@ -1406,6 +1470,8 @@ function startBootProgress() {
   }, 60);
 }
 
+let selectedDesktopItem: HTMLElement | null = null;
+
 // Desktop icon clicks via delegation (robust against inline-handler issues)
 function bindDesktopIcons() {
   const holder = document.getElementById('desktop-icons');
@@ -1417,12 +1483,25 @@ function bindDesktopIcons() {
   holder.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest('[data-open], [data-nav]') as HTMLElement | null;
     if (!btn) return;
+    selectedDesktopItem?.classList.remove('desktop-item-selected');
+    selectedDesktopItem = btn;
+    selectedDesktopItem.classList.add('desktop-item-selected');
+    btn.focus();
     const nav = btn.getAttribute('data-nav');
     if (nav) { openExplorerNav(nav); return; }
     const target = btn.getAttribute('data-open');
     if (target) openWindow(target);
   });
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' || !selectedDesktopItem) return;
+  const target = e.target as HTMLElement;
+  if (target !== document.body && target !== document.documentElement) return;
+  if (target.matches('input, textarea, [contenteditable="true"]')) return;
+  e.preventDefault();
+  selectedDesktopItem.click();
+});
 
 let currentGame: GameId | null = null;
 function initGames() {
@@ -1492,28 +1571,46 @@ function updatePhoto() {
 // Tomoe Player: YouTube embed + dino offline fallback
 // -------------------------------------------------------------
 const YT_BASE = 'https://www.youtube-nocookie.com/embed/';
+let activeYtId: string | null = null;
+let ytLoadTimer: number | null = null;
 
 export function openVideo(ytId: string) {
   const frame = document.getElementById('yt-frame') as HTMLIFrameElement | null;
   const dino = document.getElementById('dino-host');
   const title = document.getElementById('player-title');
+  const loading = document.getElementById('player-loading');
   const offline = !navigator.onLine;
+  activeYtId = ytId;
+  if (ytLoadTimer) window.clearTimeout(ytLoadTimer);
+  loading?.classList.remove('stalled');
   if (frame) {
     if (offline) {
       frame.classList.add('hidden');
       frame.src = '';
+      loading?.classList.add('hidden');
       if (dino) startDino();
       if (title) title.textContent = 'Tomoe Player — Offline';
     } else {
       frame.classList.remove('hidden');
-      frame.src = `${YT_BASE}${ytId}?rel=0&modestbranding=1&playsinline=1&autoplay=1`;
+      loading?.classList.remove('hidden');
+      frame.onload = () => {
+        if (ytLoadTimer) window.clearTimeout(ytLoadTimer);
+        loading?.classList.add('hidden');
+      };
+      frame.src = `${YT_BASE}${ytId}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
       if (dino) { dino.classList.add('hidden'); stopDino(); }
       if (title) title.textContent = 'Tomoe Player';
+      ytLoadTimer = window.setTimeout(() => {
+        loading?.classList.add('stalled');
+      }, 9000);
     }
   }
   openWindow('win-player');
 }
 window.openVideo = openVideo;
+document.getElementById('player-retry')?.addEventListener('click', () => {
+  if (activeYtId) openVideo(activeYtId);
+});
 
 // ---- Dino runner (offline fallback, shown when the player has no video) ----
 let dinoRun: { stop: () => void } | null = null;
@@ -1529,10 +1626,20 @@ function startDino(hostId = 'dino-host') {
   cv.style.cssText = 'max-width:100%;height:auto;background:#fff;border-radius:4px';
   host.appendChild(cv);
   const ctx = cv.getContext('2d')!;
+  ctx.imageSmoothingEnabled = false;
 
   const groundY = 180;
-  let dino = { x: 50, y: groundY, w: 34, h: 40, vy: 0, jumping: false };
-  let obstacle = { x: 700, w: 22, h: 34, speed: 5 };
+  const pixel = 5;
+  const dinoSprite = ['  XX  ', ' XXX  ', 'XXXX  ', ' XX X ', 'XXXXX ', ' X  X ', 'X   X ', '      '];
+  const cactusSprite = ['  XX ', '  XX ', ' XXX ', 'X XX ', 'XXXXX', '  X  ', '  X  '];
+  const drawSprite = (sprite: string[], x: number, y: number, color: string) => {
+    ctx.fillStyle = color;
+    sprite.forEach((row, rowIndex) => [...row].forEach((cell, columnIndex) => {
+      if (cell !== ' ') ctx.fillRect(x + columnIndex * pixel, y + rowIndex * pixel, pixel, pixel);
+    }));
+  };
+  let dino = { x: 50, y: groundY, w: 30, h: 40, vy: 0, jumping: false };
+  let obstacle = { x: 700, w: 25, h: 35, speed: 5 };
   let score = 0;
   let alive = true;
   let raf = 0;
@@ -1549,19 +1656,23 @@ function startDino(hostId = 'dino-host') {
         alive = false;
       } else if (obstacle.x + obstacle.w < dino.x) { score += 1; }
       // draw
-      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height);
-      ctx.strokeStyle = '#999'; ctx.beginPath(); ctx.moveTo(0, groundY + dino.h); ctx.lineTo(cv.width, groundY + dino.h); ctx.stroke();
-      ctx.fillStyle = '#444'; ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-      ctx.fillStyle = '#6b4'; ctx.fillRect(obstacle.x, groundY + dino.h - obstacle.h, obstacle.w, obstacle.h);
-      ctx.fillStyle = '#222'; ctx.font = '14px monospace'; ctx.fillText(String(Math.floor(score / 4)), cv.width - 60, 30);
-      if (!alive) { ctx.fillStyle = '#c00'; ctx.font = 'bold 18px monospace'; ctx.fillText('GAME OVER — press Space to retry', 180, 90); }
+      ctx.fillStyle = '#f5fbff'; ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.fillStyle = '#dff4ff'; ctx.fillRect(0, 0, cv.width, 70);
+      drawSprite(['  XX ', ' XXXX', 'XXXXX', ' XXX '], 520, 36, '#b8e5f2');
+      drawSprite([' XX  ', 'XXXX ', ' XXX '], 600, 66, '#c8edf7');
+      ctx.fillStyle = '#2e7188'; ctx.fillRect(0, groundY + dino.h, cv.width, 2);
+      ctx.fillStyle = '#65b8c4'; ctx.fillRect(0, groundY + dino.h + 2, cv.width, 1);
+      drawSprite(dinoSprite, dino.x, dino.y, '#173f52');
+      drawSprite(cactusSprite, obstacle.x, groundY + dino.h - obstacle.h, '#2f9b73');
+      ctx.fillStyle = '#16465d'; ctx.font = 'bold 14px monospace'; ctx.fillText(`SCORE ${String(Math.floor(score / 4)).padStart(4, '0')}`, cv.width - 130, 26);
+      if (!alive) { ctx.fillStyle = '#b33b55'; ctx.font = 'bold 17px monospace'; ctx.fillText('GAME OVER - SPACE TO RETRY', 190, 94); }
     }
     raf = requestAnimationFrame(frame);
   }
   raf = requestAnimationFrame(frame);
 
   function jump() { if (!dino.jumping) { dino.jumping = true; dino.vy = -13; } }
-  function reset() { dino = { x: 50, y: groundY, w: 34, h: 40, vy: 0, jumping: false }; obstacle = { x: 700, w: 22, h: 34, speed: 5 }; score = 0; alive = true; }
+  function reset() { dino = { x: 50, y: groundY, w: 30, h: 40, vy: 0, jumping: false }; obstacle = { x: 700, w: 25, h: 35, speed: 5 }; score = 0; alive = true; }
 
   const onKey = (e: KeyboardEvent) => {
     if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); if (!alive) reset(); else jump(); }
@@ -1812,10 +1923,10 @@ export function toggleAllPrograms(e?: Event) {
     const items: { label: string; icon: string; run: () => void }[] = [
       { label: 'Videos', icon: '/icons/folder-videos.webp', run: () => openExplorerNav('videos') },
       { label: 'Restu Explorer', icon: '/icons/fci-folder.svg', run: () => openWindow('win-explorer') },
-      { label: 'Internet Explorer', icon: '/icons/fci-display.svg', run: () => openInternetExplorer() },
+      { label: 'Internet Explorer', icon: '/icons/internet-explorer.svg', run: () => openInternetExplorer() },
       { label: 'Notepad', icon: '/icons/welcome-note.svg', run: () => openWindow('win-notepad') },
       { label: 'Calculator', icon: '/icons/calc.webp', run: () => openWindow('win-calc') },
-      { label: 'Command Prompt', icon: '/icons/fci-display.svg', run: () => openWindow('win-cmd') },
+      { label: 'Command Prompt', icon: '/icons/command-prompt.svg', run: () => openWindow('win-cmd') },
       { label: 'Games', icon: '/icons/games.webp', run: () => openWindow('win-games') },
       { label: 'Recycle Bin', icon: '/icons/bin.webp', run: () => openWindow('win-bin') },
       { label: 'Pictures', icon: '/icons/folder-pics.webp', run: () => openExplorerNav('pictures') },
@@ -1838,3 +1949,25 @@ export function toggleAllPrograms(e?: Event) {
   }
 }
 window.toggleAllPrograms = toggleAllPrograms;
+
+function initAllProgramsHover() {
+  const toggle = document.getElementById('all-programs-toggle');
+  const panel = document.getElementById('all-programs-panel');
+  if (!toggle || !panel) return;
+  let closeTimer: number | null = null;
+  const openPanel = () => {
+    if (closeTimer) window.clearTimeout(closeTimer);
+    if (panel.classList.contains('hidden')) toggleAllPrograms();
+  };
+  const closePanelSoon = () => {
+    closeTimer = window.setTimeout(() => {
+      if (!toggle.matches(':hover') && !panel.matches(':hover')) panel.classList.add('hidden');
+    }, 180);
+  };
+  toggle.addEventListener('pointerenter', openPanel);
+  toggle.addEventListener('pointerleave', closePanelSoon);
+  panel.addEventListener('pointerenter', openPanel);
+  panel.addEventListener('pointerleave', closePanelSoon);
+}
+
+window.addEventListener('DOMContentLoaded', initAllProgramsHover);
