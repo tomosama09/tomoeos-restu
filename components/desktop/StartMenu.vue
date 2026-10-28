@@ -1,6 +1,6 @@
 <template>
   <div
-    class="aero-start-menu fixed bottom-10 left-1 w-[380px] h-[480px] rounded-t-lg bg-gradient-to-b from-sky-950/85 to-blue-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-[10000] overflow-hidden select-none"
+    class="aero-start-menu open fixed bottom-10 left-1 w-[380px] h-[480px] rounded-t-lg bg-gradient-to-b from-sky-950/85 to-blue-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-[10000] overflow-hidden select-none"
     @click.stop
   >
     <!-- Top 2-Pane Container -->
@@ -120,6 +120,7 @@ import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'shutdown'): void
 }>()
 
 const wm = useWindowManager()
@@ -163,6 +164,7 @@ const openExplorerNav = (nav: 'about' | 'documents' | 'pictures') => {
 const handleShutdown = () => {
   playSound('click')
   emit('close')
+  emit('shutdown')
   // Close all open windows
   for (const id of Object.keys(wm.windows.value)) {
     wm.closeWindow(id)

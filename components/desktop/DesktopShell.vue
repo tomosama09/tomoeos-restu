@@ -1,70 +1,106 @@
 <template>
   <div class="aero-desktop-wallpaper absolute inset-0 overflow-hidden flex flex-col select-none">
-    <!-- Sun Lens Flare -->
-    <div class="aero-lens-flare pointer-events-none" />
+    <!-- Phase 1: BIOS Screen -->
+    <AeroBiosScreen v-if="osPhase === 'bios'" />
 
-    <!-- Iridescent Floating Glass Particles -->
-    <div class="bubble-particle w-8 h-8 left-[15%]" style="animation-duration: 22s; animation-delay: 0s;" />
-    <div class="bubble-particle w-12 h-12 left-[38%]" style="animation-duration: 28s; animation-delay: 4s;" />
-    <div class="bubble-particle w-6 h-6 left-[62%]" style="animation-duration: 19s; animation-delay: 2s;" />
-    <div class="bubble-particle w-10 h-10 left-[85%]" style="animation-duration: 25s; animation-delay: 7s;" />
+    <!-- Phase 2: Starting TomoeOS Boot Screen -->
+    <AeroBootScreen v-else-if="osPhase === 'boot'" :progress="bootProgress" />
 
-    <!-- Main Desktop Workspace Area -->
-    <div class="flex-1 relative overflow-hidden" @click="handleDesktopClick">
-      <!-- Desktop Icons Column Grid -->
-      <div class="absolute top-4 left-4 flex flex-col gap-3 z-0">
-        <DesktopIcon
-          label="Restu Explorer"
-          icon="/icons/computer.webp"
-          target-id="explorer"
-        />
-        <DesktopIcon
-          label="Tomoe Player"
-          icon="/icons/folder-videos.webp"
-          target-id="player"
-        />
-        <DesktopIcon
-          label="Resume.pdf"
-          icon="/icons/pdf.svg"
-          target-id=""
-          action-url="/Restu_Utomo_CV.pdf"
-        />
-        <DesktopIcon
-          label="Welcome.txt"
-          icon="/icons/welcome-note.svg"
-          target-id="notepad"
-        />
-        <DesktopIcon
-          label="Calculator"
-          icon="/icons/calc.webp"
-          target-id="calculator"
-        />
-        <DesktopIcon
-          label="Games"
-          icon="/icons/games.webp"
-          target-id="games"
-        />
+    <!-- Phase 3: Windows 7 Logon Screen -->
+    <AeroLogonScreen
+      v-else-if="osPhase === 'logon'"
+      @login="handleLogin"
+      @shutdown="handleShutdown"
+    />
+
+    <!-- Phase 4: Full Desktop Environment -->
+    <template v-else>
+      <!-- Sun Lens Flare -->
+      <div class="aero-lens-flare pointer-events-none" />
+
+      <!-- Iridescent Floating Glass Particles -->
+      <div class="bubble-particle w-8 h-8 left-[15%]" style="animation-duration: 22s; animation-delay: 0s;" />
+      <div class="bubble-particle w-12 h-12 left-[38%]" style="animation-duration: 28s; animation-delay: 4s;" />
+      <div class="bubble-particle w-6 h-6 left-[62%]" style="animation-duration: 19s; animation-delay: 2s;" />
+      <div class="bubble-particle w-10 h-10 left-[85%]" style="animation-duration: 25s; animation-delay: 7s;" />
+
+      <!-- Main Desktop Workspace Area -->
+      <div class="flex-1 relative overflow-hidden">
+        <!-- Desktop Icons Column Grid (Exact 42px icons in 64px columns) -->
+        <div class="absolute top-6 left-6 flex flex-col gap-4 z-10">
+          <DesktopIcon
+            label="Restu Explorer"
+            icon="/icons/computer.webp"
+            target-id="explorer"
+          />
+          <DesktopIcon
+            label="Tomoe Player"
+            icon="/icons/folder-videos.webp"
+            target-id="player"
+          />
+          <DesktopIcon
+            label="Resume.pdf"
+            icon="/icons/pdf.svg"
+            target-id=""
+            action-url="/Restu_Utomo_CV.pdf"
+          />
+          <DesktopIcon
+            label="Welcome.txt"
+            icon="/icons/welcome-note.svg"
+            target-id="notepad"
+          />
+          <DesktopIcon
+            label="Calculator"
+            icon="/icons/calc.webp"
+            target-id="calculator"
+          />
+          <DesktopIcon
+            label="Games"
+            icon="/icons/games.webp"
+            target-id="games"
+          />
+          <DesktopIcon
+            label="Recycle Bin"
+            icon="/icons/bin.webp"
+            target-id=""
+          />
+        </div>
+
+        <!-- Desktop Utilities / Widgets (Clock & Weather Gadgets) -->
+        <DesktopGadgets />
+
+        <!-- Desktop Sticky Note -->
+        <StickyNote />
+
+        <!-- App Windows Layer -->
+        <ExplorerWindow />
+        <TomoePlayer />
+        <NotepadApp />
+        <CalculatorApp />
+        <GamesApp />
       </div>
 
-      <!-- App Windows Layer -->
-      <ExplorerWindow />
-      <TomoePlayer />
-      <NotepadApp />
-      <CalculatorApp />
-      <GamesApp />
-    </div>
+      <!-- Start Menu Overlay -->
+      <StartMenu
+        v-if="isStartOpen"
+        @close="isStartOpen = false"
+        @shutdown="handleShutdown"
+      />
 
-    <!-- Start Menu Overlay -->
-    <StartMenu v-if="isStartOpen" @close="isStartOpen = false" />
-
-    <!-- Windows 7 Aero Taskbar -->
-    <AeroTaskbar :is-start-open="isStartOpen" @toggle-start="toggleStartMenu" />
+      <!-- Windows 7 Aero Taskbar -->
+      <AeroTaskbar :is-start-open="isStartOpen" @toggle-start="toggleStartMenu" />
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import AeroBiosScreen from '~/components/boot/AeroBiosScreen.vue'
+import AeroBootScreen from '~/components/boot/AeroBootScreen.vue'
+import AeroLogonScreen from '~/components/boot/AeroLogonScreen.vue'
 import DesktopIcon from '~/components/desktop/DesktopIcon.vue'
+import DesktopGadgets from '~/components/desktop/DesktopGadgets.vue'
+import StickyNote from '~/components/desktop/StickyNote.vue'
 import AeroTaskbar from '~/components/desktop/AeroTaskbar.vue'
 import StartMenu from '~/components/desktop/StartMenu.vue'
 import ExplorerWindow from '~/components/apps/explorer/ExplorerWindow.vue'
@@ -72,10 +108,62 @@ import TomoePlayer from '~/components/apps/player/TomoePlayer.vue'
 import NotepadApp from '~/components/apps/utilities/NotepadApp.vue'
 import CalculatorApp from '~/components/apps/utilities/CalculatorApp.vue'
 import GamesApp from '~/components/apps/utilities/GamesApp.vue'
+import { useWindowManager } from '~/composables/useWindowManager'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
-const { playSound } = useAudioFeedback()
+const wm = useWindowManager()
+const { playSound, playStartupChime } = useAudioFeedback()
+
+const osPhase = ref<'bios' | 'boot' | 'logon' | 'desktop'>('bios')
+const bootProgress = ref(0)
 const isStartOpen = ref(false)
+
+let bootTimer: ReturnType<typeof setInterval> | null = null
+
+const startBootSequence = () => {
+  osPhase.value = 'bios'
+  bootProgress.value = 0
+  if (typeof document !== 'undefined') {
+    document.body.classList.add('boot-phase')
+  }
+
+  // BIOS screen for 1.1s
+  setTimeout(() => {
+    osPhase.value = 'boot'
+    const start = Date.now()
+    const duration = 1200
+
+    bootTimer = setInterval(() => {
+      const elapsed = Date.now() - start
+      const frac = Math.min(1, elapsed / duration)
+      bootProgress.value = Math.round(frac * 100)
+
+      if (frac >= 1) {
+        if (bootTimer) clearInterval(bootTimer)
+        bootTimer = null
+        setTimeout(() => {
+          osPhase.value = 'logon'
+        }, 150)
+      }
+    }, 30)
+  }, 1100)
+}
+
+const handleLogin = () => {
+  if (typeof document !== 'undefined') {
+    document.body.classList.remove('boot-phase')
+  }
+  playStartupChime()
+  osPhase.value = 'desktop'
+  setTimeout(() => {
+    wm.openWindow('explorer')
+  }, 250)
+}
+
+const handleShutdown = () => {
+  playSound('click')
+  startBootSequence()
+}
 
 const toggleStartMenu = () => {
   playSound('click')
@@ -91,12 +179,14 @@ const onGlobalClick = (e: MouseEvent) => {
 }
 
 onMounted(() => {
+  startBootSequence()
   if (typeof window !== 'undefined') {
     window.addEventListener('click', onGlobalClick)
   }
 })
 
 onUnmounted(() => {
+  if (bootTimer) clearInterval(bootTimer)
   if (typeof window !== 'undefined') {
     window.removeEventListener('click', onGlobalClick)
   }
