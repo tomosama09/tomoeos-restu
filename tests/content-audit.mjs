@@ -1,0 +1,93 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const baseDir = path.resolve(__dirname, '..')
+
+function getAllFiles(dir, fileList = []) {
+  const files = fs.readdirSync(dir)
+  for (const file of files) {
+    const filePath = path.join(dir, file)
+    if (file === 'node_modules' || file === '.nuxt' || file === '.output' || file === '.git' || file === 'tests') continue
+    const stat = fs.statSync(filePath)
+    if (stat.isDirectory()) {
+      getAllFiles(filePath, fileList)
+    } else if (file.endsWith('.vue') || file.endsWith('.ts')) {
+      fileList.push(filePath)
+    }
+  }
+  return fileList
+}
+
+const codeFiles = getAllFiles(baseDir)
+let failures = 0
+
+console.log(`[TEST] Scanning ${codeFiles.length} source files for anti-slop rules...`)
+
+// Test 1: Zero em dash
+const filesWithEmDash = []
+for (const file of codeFiles) {
+  const content = fs.readFileSync(file, 'utf-8')
+  if (content.includes('—')) {
+    filesWithEmDash.push(path.relative(baseDir, file))
+  }
+}
+if (filesWithEmDash.length > 0) {
+  console.error(`❌ FAIL: Found forbidden em dash in: ${filesWithEmDash.join(', ')}`)
+  failures++
+} else {
+  console.log(`✅ PASS: Zero em dash characters found across all source files.`)
+}
+
+// Test 2: Prohibit RedR and PBI sections
+const forbidden = ['RedR', 'PBI / ELESP', 'PBI Study Program']
+const violations = []
+for (const file of codeFiles) {
+  if (file.includes('tests/')) continue
+  const content = fs.readFileSync(file, 'utf-8')
+  for (const token of forbidden) {
+    if (content.includes(token)) {
+      violations.push(`${path.relative(baseDir, file)} contains "${token}"`)
+    }
+  }
+}
+if (violations.length > 0) {
+  console.error(`❌ FAIL: ${violations.join(', ')}`)
+  failures++
+} else {
+  console.log(`✅ PASS: No mentions of RedR or PBI.`)
+}
+
+// Test 3: Verified metrics and titles
+const paneAbout = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneAbout.vue'), 'utf-8')
+const checks = [
+  ['Graphic Designer, Videographer & Photographer', 'Role Title'],
+  ['500,000 views', '500,000+ views metric'],
+  ['26,000 unique accounts', '26,000 unique accounts metric'],
+  ['Sanata Dharma University (2026)', 'Sanata Dharma degree']
+]
+for (const [needle, label] of checks) {
+  if (!paneAbout.includes(needle)) {
+    console.error(`❌ FAIL: Missing ${label}`)
+    failures++
+  } else {
+    console.log(`✅ PASS: Found ${label}`)
+  }
+}
+
+const paneExp = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneExperience.vue'), 'utf-8')
+if (!paneExp.includes('Sanata Dharma University Library') || !paneExp.includes('International Language and Language Teaching Conference')) {
+  console.error(`❌ FAIL: Missing USD Library or LLTC in PaneExperience`)
+  failures++
+} else {
+  console.log(`✅ PASS: Found USD Library and LLTC in PaneExperience`)
+}
+
+if (failures > 0) {
+  console.error(`\nTest suite FAILED with ${failures} error(s).`)
+  process.exit(1)
+} else {
+  console.log(`\n🎉 ALL CONTENT AUDIT TESTS PASSED!`)
+  process.exit(0)
+}

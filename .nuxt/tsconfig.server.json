@@ -1,0 +1,147 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "#imports": [
+        "./types/nitro-imports"
+      ],
+      "~/*": [
+        "../*"
+      ],
+      "@/*": [
+        "../*"
+      ],
+      "~~/*": [
+        "../*"
+      ],
+      "@@/*": [
+        "../*"
+      ],
+      "vue-router": [
+        "../../porto baru/node_modules/vue-router"
+      ],
+      "vue-router/auto-routes": [
+        "../../porto baru/node_modules/vue-router/vue-router-auto-routes"
+      ],
+      "nuxt": [
+        "../../porto baru/node_modules/nuxt"
+      ],
+      "@unhead/vue": [
+        "../../porto baru/node_modules/@unhead/vue"
+      ],
+      "@nuxt/devtools": [
+        "../../porto baru/node_modules/@nuxt/devtools"
+      ],
+      "@vue/runtime-core": [
+        "../../porto baru/node_modules/@vue/runtime-core"
+      ],
+      "@vue/compiler-sfc": [
+        "../../porto baru/node_modules/@vue/compiler-sfc"
+      ],
+      "@nuxt/schema": [
+        "../../porto baru/node_modules/nuxt/node_modules/@nuxt/schema"
+      ],
+      "defu": [
+        "../../porto baru/node_modules/defu"
+      ],
+      "h3": [
+        "../../porto baru/node_modules/h3"
+      ],
+      "consola": [
+        "../../porto baru/node_modules/consola"
+      ],
+      "ofetch": [
+        "../../porto baru/node_modules/ofetch"
+      ],
+      "crossws": [
+        "../../porto baru/node_modules/crossws"
+      ],
+      "unplugin-vue-router/client": [
+        "../../porto baru/node_modules/unplugin-vue-router/client"
+      ],
+      "nitropack": [
+        "../../porto baru/node_modules/nitropack"
+      ],
+      "vite/client": [
+        "../../porto baru/node_modules/vite/client"
+      ],
+      "nitropack/types": [
+        "../../porto baru/node_modules/nitropack/types"
+      ],
+      "nitropack/runtime": [
+        "../../porto baru/node_modules/nitropack/runtime"
+      ],
+      "#shared": [
+        "../shared"
+      ],
+      "#shared/*": [
+        "../shared/*"
+      ],
+      "assets": [
+        "../assets"
+      ],
+      "assets/*": [
+        "../assets/*"
+      ],
+      "public": [
+        "../public"
+      ],
+      "public/*": [
+        "../public/*"
+      ],
+      "#server": [
+        "../server"
+      ],
+      "#server/*": [
+        "../server/*"
+      ],
+      "#build": [
+        "./"
+      ],
+      "#build/*": [
+        "./*"
+      ],
+      "#internal/nuxt/paths": [
+        "../../porto baru/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths"
+      ],
+      "#unhead/composables": [
+        "../../porto baru/node_modules/nuxt/dist/head/runtime/composables/v3"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "webworker",
+      "dom.iterable"
+    ],
+    "noUncheckedIndexedAccess": true,
+    "allowArbitraryExtensions": true
+  },
+  "include": [
+    "./types/nitro-nuxt.d.ts",
+    "../../porto baru/node_modules/runtime/server",
+    "../../porto baru/node_modules/dist/runtime/server",
+    "../server/**/*",
+    "../shared/**/*.d.ts",
+    "./types/nitro.d.ts",
+    "../**/*"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../../porto baru/node_modules/nuxt/node_modules",
+    "../../porto baru/node_modules/@nuxtjs/tailwindcss/node_modules",
+    "../../porto baru/node_modules/@nuxt/telemetry/node_modules",
+    "../dist"
+  ]
+}
