@@ -15,12 +15,12 @@
       <div class="absolute top-4 left-4 flex flex-col gap-3 z-0">
         <DesktopIcon
           label="Restu Explorer"
-          icon="/icons/fci-folder.svg"
+          icon="/icons/computer.webp"
           target-id="explorer"
         />
         <DesktopIcon
           label="Tomoe Player"
-          icon="/icons/fci-film.svg"
+          icon="/icons/folder-videos.webp"
           target-id="player"
         />
         <DesktopIcon
@@ -31,7 +31,7 @@
         />
         <DesktopIcon
           label="Welcome.txt"
-          icon="/icons/txt.svg"
+          icon="/icons/welcome-note.svg"
           target-id="notepad"
         />
         <DesktopIcon
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import DesktopIcon from '~/components/desktop/DesktopIcon.vue'
 import AeroTaskbar from '~/components/desktop/AeroTaskbar.vue'
 import StartMenu from '~/components/desktop/StartMenu.vue'
@@ -82,11 +82,23 @@ const toggleStartMenu = () => {
   isStartOpen.value = !isStartOpen.value
 }
 
-const handleDesktopClick = (e: MouseEvent) => {
-  // If clicked directly on desktop wallpaper, close Start Menu
+const onGlobalClick = (e: MouseEvent) => {
+  if (!isStartOpen.value) return
   const target = e.target as HTMLElement
-  if (target.classList.contains('aero-desktop-wallpaper') || target.classList.contains('flex-1')) {
+  if (!target.closest('.aero-start-menu') && !target.closest('#start-orb-btn')) {
     isStartOpen.value = false
   }
 }
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('click', onGlobalClick)
+  }
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('click', onGlobalClick)
+  }
+})
 </script>

@@ -1,17 +1,27 @@
 <template>
-  <div class="aero-taskbar h-10 w-full bg-gradient-to-b from-sky-900/60 via-blue-950/70 to-slate-950/80 backdrop-blur-xl border-t border-white/30 flex items-center justify-between px-2 z-40 select-none relative shadow-lg">
+  <div class="aero-taskbar fixed bottom-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-900/60 via-blue-950/70 to-slate-950/80 backdrop-blur-xl border-t border-white/30 flex items-center justify-between px-2 z-[9999] select-none shadow-lg pointer-events-auto">
     <!-- Left Section: Start Orb & Task Items -->
     <div class="flex items-center gap-1.5 h-full flex-1 min-w-0">
       <!-- Windows 7 Start Orb Button -->
       <button
+        id="start-orb-btn"
         type="button"
-        class="start-orb w-9 h-9 rounded-full flex items-center justify-center relative cursor-pointer group focus:outline-none transition-transform active:scale-95 shrink-0"
-        :class="isStartOpen ? 'ring-2 ring-sky-300 ring-offset-1 ring-offset-blue-900' : ''"
+        class="relative w-10 h-10 -mt-1 ml-0.5 cursor-pointer shrink-0 z-50 focus:outline-none select-none group"
         title="Start"
-        @click="$emit('toggle-start')"
+        @click.stop="$emit('toggle-start')"
       >
-        <div class="absolute inset-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-600 to-blue-900 shadow-md group-hover:from-sky-300 group-hover:via-blue-500 group-hover:to-blue-800 border border-white/60" />
-        <img src="/icons/fci-display.svg" alt="Start" class="w-5 h-5 relative z-10 drop-shadow" />
+        <img
+          :src="isStartOpen ? '/icons/start-orb-pressed.webp' : '/icons/start-orb-normal.webp'"
+          alt="Start"
+          class="w-full h-full object-contain drop-shadow transition-transform group-hover:scale-105 active:scale-95"
+          :class="isStartOpen ? '' : 'group-hover:hidden'"
+        />
+        <img
+          v-if="!isStartOpen"
+          src="/icons/start-orb-hover.webp"
+          alt="Start"
+          class="w-full h-full object-contain drop-shadow transition-transform scale-105 hidden group-hover:block"
+        />
       </button>
 
       <!-- Taskbar Open Windows Buttons -->

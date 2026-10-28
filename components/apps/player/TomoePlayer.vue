@@ -13,7 +13,7 @@
           allowfullscreen
         />
 
-        <!-- Offline / Dino Fallback State -->
+        <!-- Offline Fallback State -->
         <div v-else class="flex flex-col items-center justify-center p-6 text-center space-y-3">
           <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
             <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
@@ -21,8 +21,8 @@
             </svg>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-200">No active video stream available</div>
-            <p class="text-xs text-slate-400 mt-1 max-w-sm">Connect to the internet to stream unlisted production showreels or select another video below.</p>
+            <div class="font-bold text-sm text-slate-200">No active video connection</div>
+            <p class="text-xs text-slate-400 mt-1 max-w-sm">Connect to the internet to stream showreel videos or select another track below.</p>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="min-w-0 pr-1">
             <div class="text-[11px] font-bold text-slate-200 truncate">{{ vid.title }}</div>
-            <div class="text-[9px] text-slate-400">{{ vid.duration }} • {{ vid.year }}</div>
+            <div class="text-[9px] text-slate-400">{{ vid.category }} • {{ vid.year }}</div>
           </div>
         </button>
       </div>
@@ -55,17 +55,19 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useState } from '#imports'
 import WindowFrame from '~/components/common/WindowFrame.vue'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 const { playSound } = useAudioFeedback()
 const isOnline = ref(true)
-const currentVideoId = ref('dQw4w9WgXcQ') // default embed
+const currentVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
 
 const playlist = [
-  { id: 'dQw4w9WgXcQ', title: 'Sanata Dharma Library Profile Film', duration: '03:45', year: '2025', thumb: '/images/library/library-10.webp' },
-  { id: 'L_LUpnjgPso', title: 'LLTC 2025 Hybrid Conference Reel', duration: '02:18', year: '2025', thumb: '/images/library/library-43.webp' },
-  { id: '3JZ_D3ELwOQ', title: 'Campus Social Media Viral Series', duration: '01:30', year: '2025', thumb: '/images/library/library-80.webp' }
+  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', category: 'Trailer', year: '2023', thumb: '/images/library/library-10.webp' },
+  { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', category: 'Trailer', year: '2024', thumb: '/images/library/library-43.webp' },
+  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', category: 'Conference Coverage', year: '2024', thumb: '/images/library/library-80.webp' },
+  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', category: 'Aftermovie', year: '2023', thumb: '/images/library/library-11.webp' }
 ]
 
 onMounted(() => {

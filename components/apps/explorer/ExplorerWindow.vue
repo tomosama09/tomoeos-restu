@@ -6,7 +6,7 @@
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'about'">File</button>
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'services'">Edit</button>
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'experience'">View</button>
-        <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'faq'">Help</button>
+        <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'contact'">Help</button>
       </div>
 
       <!-- Windows 7 Explorer Address Bar Toolbar -->
@@ -97,16 +97,6 @@
             <button
               type="button"
               class="w-full flex items-center gap-2 px-2 py-1.5 rounded text-left text-xs font-medium cursor-pointer transition-colors"
-              :class="currentNav === 'faq' ? 'bg-sky-200/80 text-blue-950 font-bold shadow-2xs' : 'text-slate-700 hover:bg-white/60'"
-              @click="setNav('faq')"
-            >
-              <img src="/icons/fci-questions.svg" alt="" class="w-4 h-4 shrink-0" />
-              <span>Production FAQ</span>
-            </button>
-
-            <button
-              type="button"
-              class="w-full flex items-center gap-2 px-2 py-1.5 rounded text-left text-xs font-medium cursor-pointer transition-colors"
               :class="currentNav === 'contact' ? 'bg-sky-200/80 text-blue-950 font-bold shadow-2xs' : 'text-slate-700 hover:bg-white/60'"
               @click="setNav('contact')"
             >
@@ -167,7 +157,6 @@
           <PaneAbout v-if="currentNav === 'about'" />
           <PaneServices v-else-if="currentNav === 'services'" />
           <PaneExperience v-else-if="currentNav === 'experience'" />
-          <PaneFaq v-else-if="currentNav === 'faq'" />
           <PaneContact v-else-if="currentNav === 'contact'" />
           <PaneMediaLibrary
             v-else-if="currentNav === 'videos' || currentNav === 'documents' || currentNav === 'pictures'"
@@ -185,15 +174,14 @@ import WindowFrame from '~/components/common/WindowFrame.vue'
 import PaneAbout from '~/components/apps/explorer/PaneAbout.vue'
 import PaneServices from '~/components/apps/explorer/PaneServices.vue'
 import PaneExperience from '~/components/apps/explorer/PaneExperience.vue'
-import PaneFaq from '~/components/apps/explorer/PaneFaq.vue'
 import PaneContact from '~/components/apps/explorer/PaneContact.vue'
 import PaneMediaLibrary from '~/components/apps/explorer/PaneMediaLibrary.vue'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
-type NavSection = 'about' | 'services' | 'experience' | 'faq' | 'contact' | 'videos' | 'documents' | 'pictures'
+type NavSection = 'about' | 'services' | 'experience' | 'contact' | 'videos' | 'documents' | 'pictures'
 
 const { playSound } = useAudioFeedback()
-const currentNav = ref<NavSection>('about')
+const currentNav = useState<NavSection>('explorer-nav', () => 'about')
 const navHistory = ref<NavSection[]>(['about'])
 
 const currentNavLabel = computed(() => {
@@ -201,7 +189,6 @@ const currentNavLabel = computed(() => {
     case 'about': return 'About Me'
     case 'services': return 'What I Do'
     case 'experience': return 'Work Experience'
-    case 'faq': return 'Production FAQ'
     case 'contact': return 'Contact'
     case 'videos': return 'Videos Library'
     case 'documents': return 'Documents Library'

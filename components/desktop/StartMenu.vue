@@ -1,6 +1,6 @@
 <template>
   <div
-    class="aero-start-menu absolute bottom-10 left-2 w-[380px] h-[480px] rounded-t-lg bg-gradient-to-b from-sky-950/85 to-blue-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-50 overflow-hidden select-none"
+    class="aero-start-menu fixed bottom-10 left-1 w-[380px] h-[480px] rounded-t-lg bg-gradient-to-b from-sky-950/85 to-blue-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-[10000] overflow-hidden select-none"
     @click.stop
   >
     <!-- Top 2-Pane Container -->
@@ -49,14 +49,14 @@
           <button
             type="button"
             class="w-full text-left hover:text-sky-300 transition-colors cursor-pointer"
-            @click="launchApp('explorer')"
+            @click="openExplorerNav('documents')"
           >
             Documents
           </button>
           <button
             type="button"
             class="w-full text-left hover:text-sky-300 transition-colors cursor-pointer"
-            @click="launchApp('explorer')"
+            @click="openExplorerNav('pictures')"
           >
             Pictures
           </button>
@@ -70,7 +70,7 @@
           <button
             type="button"
             class="w-full text-left hover:text-sky-300 transition-colors cursor-pointer"
-            @click="launchApp('explorer')"
+            @click="openExplorerNav('about')"
           >
             Computer
           </button>
@@ -124,6 +124,7 @@ const emit = defineEmits<{
 
 const wm = useWindowManager()
 const { playSound } = useAudioFeedback()
+const explorerNav = useState<string>('explorer-nav', () => 'about')
 
 const searchQuery = ref('')
 
@@ -150,6 +151,13 @@ const launchApp = (id: string, actionUrl?: string) => {
     return
   }
   wm.openWindow(id)
+}
+
+const openExplorerNav = (nav: 'about' | 'documents' | 'pictures') => {
+  playSound('click')
+  emit('close')
+  explorerNav.value = nav
+  wm.openWindow('explorer')
 }
 
 const handleShutdown = () => {
