@@ -1,5 +1,5 @@
 <template>
-  <WindowFrame id="explorer" title="Restu Explorer - Personal Files" icon="/icons/fci-folder.svg">
+  <WindowFrame id="explorer" title="Explorer" icon="/icons/computer.webp">
     <div class="flex flex-col h-full overflow-hidden select-none">
       <!-- Windows 7 Explorer Menubar -->
       <div class="explorer-menubar shrink-0 bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300/80 px-2 py-0.5 flex items-center gap-3 text-xs text-slate-700">
@@ -36,7 +36,7 @@
 
         <!-- Breadcrumb Address Bar -->
         <div class="flex-1 h-6 bg-white border border-blue-300 rounded px-2 flex items-center gap-1.5 text-xs text-slate-700 shadow-inner overflow-hidden">
-          <img src="/icons/fci-folder.svg" alt="" class="w-3.5 h-3.5 shrink-0" />
+          <img src="/icons/computer.webp" alt="" class="w-3.5 h-3.5 shrink-0 object-contain" />
           <span class="text-slate-400">Computer</span>
           <span class="text-slate-400">▶</span>
           <span class="text-slate-600 font-medium">Restu Utomo</span>
@@ -136,19 +136,6 @@
               <img src="/icons/folder-pics.webp" alt="" class="w-4 h-4 shrink-0" />
               <span>Pictures</span>
             </button>
-          </div>
-
-          <!-- Bottom Card: Verified CV Link -->
-          <div class="mt-4 p-2 bg-gradient-to-b from-blue-50 to-sky-100 rounded border border-blue-200 flex flex-col gap-1 text-[11px]">
-            <span class="font-bold text-blue-950">Verified CV</span>
-            <p class="text-[10px] text-slate-600 leading-tight">Official curriculum vitae document.</p>
-            <a
-              href="/Restu_Utomo_CV.pdf"
-              download="Restu_Utomo_CV.pdf"
-              class="mt-1 py-1 text-center bg-gradient-to-b from-sky-400 to-blue-600 text-white font-bold rounded shadow-2xs text-[10px] hover:from-sky-300 hover:to-blue-500 cursor-pointer"
-            >
-              Download PDF
-            </a>
           </div>
         </div>
 

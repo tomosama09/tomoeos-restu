@@ -29,12 +29,12 @@
         <!-- Desktop Icons Column Grid (Exact 42px icons in 64px columns) -->
         <div class="absolute top-6 left-6 flex flex-col gap-4 z-10">
           <DesktopIcon
-            label="Restu Explorer"
+            label="Explorer"
             icon="/icons/computer.webp"
             target-id="explorer"
           />
           <DesktopIcon
-            label="Tomoe Player"
+            label="Media Player"
             icon="/icons/folder-videos.webp"
             target-id="player"
           />

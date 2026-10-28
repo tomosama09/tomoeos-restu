@@ -1,5 +1,5 @@
 <template>
-  <WindowFrame id="player" title="Tomoe Player - Video Showreel" icon="/icons/fci-film.svg">
+  <WindowFrame id="player" title="Media Player" icon="/icons/folder-videos.webp">
     <div class="flex flex-col h-full bg-slate-950 text-white select-none overflow-hidden">
       <!-- Player Video Area -->
       <div class="flex-1 bg-black flex items-center justify-center relative min-h-0">
@@ -64,10 +64,10 @@ const isOnline = ref(true)
 const currentVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
 
 const playlist = [
-  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', category: 'Trailer', year: '2023', thumb: '/images/library/library-10.webp' },
-  { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', category: 'Trailer', year: '2024', thumb: '/images/library/library-43.webp' },
-  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', category: 'Conference Coverage', year: '2024', thumb: '/images/library/library-80.webp' },
-  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', category: 'Aftermovie', year: '2023', thumb: '/images/library/library-11.webp' }
+  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', category: 'Trailer', year: '2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', category: 'Trailer', year: '2024', thumb: 'https://img.youtube.com/vi/e1N52bWm5d0/hqdefault.jpg' },
+  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', category: 'Conference Coverage', year: '2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' },
+  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', category: 'Aftermovie', year: '2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' }
 ]
 
 onMounted(() => {

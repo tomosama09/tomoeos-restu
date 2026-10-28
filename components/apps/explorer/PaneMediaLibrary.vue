@@ -5,8 +5,8 @@
       <div>
         <h2 class="text-base font-bold text-blue-950 tracking-tight capitalize">{{ category }} Library</h2>
         <p class="text-xs text-slate-600 mt-0.5">
-          <template v-if="category === 'videos'">Showreel tracks in the Videos library. Click a video to play.</template>
-          <template v-else-if="category === 'pictures'">Promotional and literacy poster work for the Sanata Dharma University Library.</template>
+          <template v-if="category === 'videos'">Showreel tracks. Click to open directly in YouTube.</template>
+          <template v-else-if="category === 'pictures'">Selected Work: Promotional and literacy poster designs for the Sanata Dharma University Library.</template>
           <template v-else>Official curriculum vitae document.</template>
         </p>
       </div>
@@ -20,16 +20,17 @@
       <div
         v-for="vid in videoList"
         :key="vid.id"
-        class="p-3 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all shadow-2xs flex items-center gap-3 cursor-pointer select-none"
+        class="p-2.5 rounded-lg bg-white border border-slate-200 hover:border-red-400 hover:bg-red-50/30 transition-all shadow-2xs flex items-center gap-3 cursor-pointer select-none"
         @click="playVideo(vid.id)"
       >
-        <img src="/icons/folder-videos.webp" alt="" class="w-8 h-8 shrink-0" />
+        <img :src="vid.thumb" alt="" class="w-16 h-10 object-cover rounded border border-slate-300 shrink-0" />
         <div class="flex-1 min-w-0">
           <div class="text-xs font-bold text-blue-950 truncate">{{ vid.title }}</div>
           <div class="text-[11px] text-slate-500">{{ vid.sub }}</div>
         </div>
-        <span class="text-xs text-blue-700 font-bold px-2 py-0.5 rounded bg-blue-100 hover:bg-blue-200 shrink-0">
-          Play ▶
+        <span class="text-xs text-red-600 font-bold px-2 py-0.5 rounded bg-red-50 border border-red-200 hover:bg-red-100 shrink-0 flex items-center gap-1">
+          <span>YouTube</span>
+          <span>↗</span>
         </span>
       </div>
     </div>
@@ -85,7 +86,7 @@
       <div class="relative max-w-xl max-h-[85vh] bg-slate-900 rounded-lg p-2 border border-white/20 shadow-2xl flex flex-col items-center" @click.stop>
         <!-- Top bar -->
         <div class="w-full flex items-center justify-between pb-2 px-1 text-slate-300 text-xs">
-          <span class="font-bold">Windows Photo Viewer - Poster {{ selectedPhotoIndex + 1 }} of {{ pictureList.length }}</span>
+          <span class="font-bold">Windows Photo Viewer - Selected Work (Poster {{ selectedPhotoIndex + 1 }} of {{ pictureList.length }})</span>
           <button type="button" class="text-white hover:text-red-400 font-bold px-2 py-0.5 rounded cursor-pointer" @click="selectedPhotoIndex = null">✕</button>
         </div>
 
@@ -125,10 +126,10 @@ const activeVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo'
 const selectedPhotoIndex = ref<number | null>(null)
 
 const videoList = [
-  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', sub: 'YouTube • Trailer • 2023' },
-  { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', sub: 'YouTube • Trailer • 2024' },
-  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', sub: 'YouTube • Conference Coverage • 2024' },
-  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', sub: 'YouTube • Aftermovie • 2023' }
+  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', sub: 'YouTube • Trailer • 2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', sub: 'YouTube • Trailer • 2024', thumb: 'https://img.youtube.com/vi/e1N52bWm5d0/hqdefault.jpg' },
+  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', sub: 'YouTube • Conference Coverage • 2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' },
+  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', sub: 'YouTube • Aftermovie • 2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' }
 ]
 
 const pictureList = [
@@ -146,8 +147,7 @@ const itemCount = computed(() => {
 
 const playVideo = (id: string) => {
   playSound('click')
-  activeVideoId.value = id
-  wm.openWindow('player')
+  window.open(`https://www.youtube.com/watch?v=${id}`, '_blank')
 }
 
 const openCV = () => {

@@ -19,8 +19,8 @@ export interface WindowState {
 const DEFAULT_WINDOWS: Record<string, WindowState> = {
   explorer: {
     id: 'explorer',
-    title: 'Restu Explorer - Personal Files',
-    icon: '/icons/fci-folder.svg',
+    title: 'Explorer',
+    icon: '/icons/computer.webp',
     isOpen: true,
     isMinimized: false,
     isMaximized: false,
@@ -34,8 +34,8 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
   },
   player: {
     id: 'player',
-    title: 'Tomoe Player - Video Showreel',
-    icon: '/icons/fci-film.svg',
+    title: 'Media Player',
+    icon: '/icons/folder-videos.webp',
     isOpen: false,
     isMinimized: false,
     isMaximized: false,
@@ -49,8 +49,8 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
   },
   notepad: {
     id: 'notepad',
-    title: 'Notepad - Welcome.txt',
-    icon: '/icons/txt.svg',
+    title: 'Welcome.txt - Notepad',
+    icon: '/icons/welcome-note.svg',
     isOpen: false,
     isMinimized: false,
     isMaximized: false,
@@ -79,7 +79,7 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
   },
   games: {
     id: 'games',
-    title: 'Game Center',
+    title: 'Games',
     icon: '/icons/games.webp',
     isOpen: false,
     isMinimized: false,

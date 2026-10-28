@@ -2,26 +2,17 @@
   <div class="aero-taskbar fixed bottom-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-900/60 via-blue-950/70 to-slate-950/80 backdrop-blur-xl border-t border-white/30 flex items-center justify-between px-2 z-[9999] select-none shadow-lg pointer-events-auto">
     <!-- Left Section: Start Orb & Task Items -->
     <div class="flex items-center gap-1.5 h-full flex-1 min-w-0">
-      <!-- Windows 7 Start Orb Button -->
+      <!-- Dark Blue Glossy Start Orb (No Windows Logo) -->
       <button
         id="start-orb-btn"
         type="button"
-        class="relative w-10 h-10 -mt-1 ml-0.5 cursor-pointer shrink-0 z-50 focus:outline-none select-none group"
+        class="relative w-9 h-9 rounded-full cursor-pointer shrink-0 z-50 focus:outline-none select-none transition-transform active:scale-95 flex items-center justify-center border border-white/60 shadow-[0_2px_6px_rgba(0,15,40,0.6)]"
+        :class="isStartOpen ? 'ring-2 ring-sky-300 ring-offset-1 ring-offset-blue-950 bg-gradient-to-b from-blue-900 to-slate-950' : 'bg-gradient-to-b from-sky-600 via-blue-800 to-blue-950 hover:from-sky-500 hover:via-blue-700 hover:to-blue-900'"
         title="Start"
         @click.stop="$emit('toggle-start')"
       >
-        <img
-          :src="isStartOpen ? '/icons/start-orb-pressed.webp' : '/icons/start-orb-normal.webp'"
-          alt="Start"
-          class="w-full h-full object-contain drop-shadow transition-transform group-hover:scale-105 active:scale-95"
-          :class="isStartOpen ? '' : 'group-hover:hidden'"
-        />
-        <img
-          v-if="!isStartOpen"
-          src="/icons/start-orb-hover.webp"
-          alt="Start"
-          class="w-full h-full object-contain drop-shadow transition-transform scale-105 hidden group-hover:block"
-        />
+        <!-- Gloss Reflection Upper Half -->
+        <div class="absolute top-0.5 left-1 right-1 h-3.5 rounded-t-full bg-gradient-to-b from-white/70 to-white/10 pointer-events-none" />
       </button>
 
       <!-- Taskbar Open Windows Buttons -->

@@ -5,8 +5,8 @@
       <div class="aero-logon-user">
         <img
           class="aero-logon-avatar"
-          src="/images/restu-photo.webp"
-          alt="Restu Utomo"
+          src="/icons/logon-avatar.svg"
+          alt="User Avatar"
         />
         <div class="aero-logon-user-copy">
           <div class="aero-logon-name">Restu Utomo</div>
