@@ -8,12 +8,6 @@
       <div>
         <h1 class="text-lg font-bold text-blue-950 tracking-tight leading-snug">Restu Utomo</h1>
         <p class="text-xs font-semibold text-blue-700">Graphic Designer, Videographer & Photographer</p>
-        <div class="mt-1 flex items-center gap-2">
-          <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
-            Available for Commissions
-          </span>
-          <span class="text-[10px] text-slate-500 font-mono">Sanata Dharma University '26</span>
-        </div>
       </div>
     </div>
 
@@ -27,30 +21,28 @@
       </p>
     </div>
 
-    <!-- System Specifications (Vista/7 System Rating Metaphor) -->
-    <div class="rounded-lg border border-blue-200 bg-gradient-to-b from-white to-blue-50/50 p-3 shadow-sm space-y-2">
-      <div class="text-[11px] font-bold text-blue-950 uppercase tracking-wide border-b border-blue-200/60 pb-1 flex items-center justify-between">
-        <span>Academic & Technical Specifications</span>
-        <span class="text-blue-600 font-mono text-[10px]">Verified Credentials</span>
+    <!-- System Specifications (Authentic Windows 7 System Properties List) -->
+    <div class="mt-4 pt-3 border-t border-slate-300/80 space-y-2">
+      <div class="text-[11px] font-bold text-blue-950">
+        Academic & Technical Specifications
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-1 text-xs">
-        <div class="p-2 rounded bg-white border border-slate-200 shadow-2xs">
-          <div class="text-[10px] text-slate-500 font-semibold">Degree</div>
-          <div class="font-bold text-blue-950 mt-0.5">B.A. in English Language Education</div>
-          <div class="text-[10px] text-slate-600">Sanata Dharma University (2026)</div>
+      <div class="bg-white/80 rounded border border-slate-200/90 p-3 shadow-2xs divide-y divide-slate-100 text-xs">
+        <div class="flex py-1.5 items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Degree:</span>
+          <span class="text-blue-950 font-semibold">B.A. in English Language Education, Sanata Dharma University (2026)</span>
         </div>
-
-        <div class="p-2 rounded bg-white border border-slate-200 shadow-2xs">
-          <div class="text-[10px] text-slate-500 font-semibold">Applied Research</div>
-          <div class="font-bold text-blue-950 mt-0.5">English Learning Module</div>
-          <div class="text-[10px] text-slate-600">ADDIE Instructional R&D Framework</div>
+        <div class="flex py-1.5 items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Undergraduate Thesis:</span>
+          <span class="text-slate-800 font-normal">Developing an English Learning Module (ADDIE R&D Framework)</span>
         </div>
-
-        <div class="p-2 rounded bg-white border border-slate-200 shadow-2xs">
-          <div class="text-[10px] text-slate-500 font-semibold">Production Toolkit</div>
-          <div class="font-bold text-blue-950 mt-0.5">Photoshop, Illustrator, DaVinci, Premiere, Lightroom, OBS Studio</div>
-          <div class="text-[10px] text-slate-600">Mirrorless Camera Systems</div>
+        <div class="flex py-1.5 items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Production Software:</span>
+          <span class="text-slate-800 font-normal">Adobe Photoshop, Illustrator, Premiere Pro, DaVinci Resolve Studio, Lightroom, OBS Studio</span>
+        </div>
+        <div class="flex py-1.5 items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Hardware Environment:</span>
+          <span class="text-slate-800 font-normal">Mirrorless Camera Systems, Wireless Field Audio, Studio Rigging</span>
         </div>
       </div>
     </div>

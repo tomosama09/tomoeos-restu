@@ -77,11 +77,32 @@ for (const [needle, label] of checks) {
 }
 
 const paneExp = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneExperience.vue'), 'utf-8')
-if (!paneExp.includes('Sanata Dharma University Library') || !paneExp.includes('International Language and Language Teaching Conference')) {
-  console.error(`❌ FAIL: Missing USD Library or LLTC in PaneExperience`)
+if (!paneExp.includes('Sanata Dharma University Library')) {
+  console.error(`❌ FAIL: Missing USD Library in PaneExperience`)
+  failures++
+} else if (paneExp.includes('International Language and Language Teaching Conference') || paneExp.includes('LLTC')) {
+  console.error(`❌ FAIL: Found unwanted LLTC in PaneExperience`)
   failures++
 } else {
-  console.log(`✅ PASS: Found USD Library and LLTC in PaneExperience`)
+  console.log(`✅ PASS: Found USD Library and no LLTC in PaneExperience`)
+}
+
+const paneContact = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneContact.vue'), 'utf-8')
+if (!paneContact.includes('rstt.tomo@gmail.com')) {
+  console.error(`❌ FAIL: Missing updated email rstt.tomo@gmail.com in PaneContact`)
+  failures++
+} else if (paneContact.includes('Open for Freelance')) {
+  console.error(`❌ FAIL: Found unwanted "Open for Freelance" in PaneContact`)
+  failures++
+} else {
+  console.log(`✅ PASS: PaneContact verified clean with updated email.`)
+}
+
+if (paneAbout.includes('Available for Commissions') || paneAbout.includes("SDU'26") || paneAbout.includes('Verified Credentials')) {
+  console.error(`❌ FAIL: Found unwanted badge in PaneAbout`)
+  failures++
+} else {
+  console.log(`✅ PASS: PaneAbout verified clean of badges.`)
 }
 
 if (failures > 0) {

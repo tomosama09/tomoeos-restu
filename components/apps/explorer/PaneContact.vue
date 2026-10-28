@@ -8,8 +8,8 @@
     <!-- Contact Details Card -->
     <div class="p-3.5 rounded-lg bg-gradient-to-b from-white to-sky-50/50 border border-blue-200 shadow-sm space-y-3">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow">
-          RU
+        <div class="w-12 h-12 rounded-full p-0.5 bg-gradient-to-br from-sky-400 to-blue-700 shadow-md overflow-hidden shrink-0">
+          <img src="/images/restu-photo.webp" alt="Restu Utomo" class="w-full h-full object-cover rounded-full" />
         </div>
         <div>
           <div class="font-bold text-blue-950 text-sm">Restu Utomo</div>
@@ -20,8 +20,8 @@
       <div class="pt-2 border-t border-blue-100 space-y-2 text-xs">
         <div class="flex items-center justify-between">
           <span class="text-slate-500 font-medium">Direct Email:</span>
-          <a href="mailto:restuutomo@gmail.com" class="text-blue-700 font-bold hover:underline">
-            restuutomo@gmail.com
+          <a href="mailto:rstt.tomo@gmail.com" class="text-blue-700 font-bold hover:underline">
+            rstt.tomo@gmail.com
           </a>
         </div>
         <div class="flex items-center justify-between">
@@ -30,10 +30,6 @@
             <span>Download Curriculum Vitae (PDF)</span>
             <span>⬇</span>
           </a>
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-slate-500 font-medium">Availability:</span>
-          <span class="text-emerald-700 font-semibold">Open for Freelance & Institutional Projects</span>
         </div>
       </div>
     </div>
