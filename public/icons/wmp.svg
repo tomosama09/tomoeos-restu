@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <!-- Outer glass ring gradient -->
+    <linearGradient id="outerRing" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#73c0ff"/>
+      <stop offset="35%" stop-color="#2684dc"/>
+      <stop offset="70%" stop-color="#1459a9"/>
+      <stop offset="100%" stop-color="#0a3977"/>
+    </linearGradient>
+
+    <!-- Outer silver rim -->
+    <linearGradient id="silverRim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#b0c8e2"/>
+      <stop offset="100%" stop-color="#5a7d9e"/>
+    </linearGradient>
+
+    <!-- Center orange orb gradient -->
+    <linearGradient id="orangeOrb" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb833"/>
+      <stop offset="45%" stop-color="#ff8800"/>
+      <stop offset="85%" stop-color="#e65100"/>
+      <stop offset="100%" stop-color="#b23b00"/>
+    </linearGradient>
+
+    <!-- Play arrow gradient -->
+    <linearGradient id="playArrow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#e8f3ff"/>
+      <stop offset="100%" stop-color="#bdd6f2"/>
+    </linearGradient>
+
+    <!-- Aero Glass Gloss Highlight -->
+    <linearGradient id="glassGloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <circle cx="24" cy="25" r="22" fill="#000000" opacity="0.3"/>
+
+  <!-- Silver Rim Base -->
+  <circle cx="24" cy="24" r="22" fill="url(#silverRim)"/>
+
+  <!-- Outer Blue Glass Circle -->
+  <circle cx="24" cy="24" r="20" fill="url(#outerRing)"/>
+
+  <!-- Outer Ring Inset Stroke -->
+  <circle cx="24" cy="24" r="19" fill="none" stroke="#ffffff" stroke-width="0.8" opacity="0.45"/>
+
+  <!-- Center Orange Play Orb -->
+  <circle cx="24" cy="24" r="12" fill="url(#orangeOrb)"/>
+  <circle cx="24" cy="24" r="11.5" fill="none" stroke="#ffe082" stroke-width="0.75" opacity="0.8"/>
+
+  <!-- White Play Triangle -->
+  <polygon points="21,17 31,24 21,31" fill="url(#playArrow)" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.5))"/>
+
+  <!-- Glass Gloss Highlight Arc (Top Crescent) -->
+  <ellipse cx="24" cy="14" rx="14" ry="7" fill="url(#glassGloss)"/>
+</svg>

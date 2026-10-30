@@ -7,8 +7,9 @@
     <div class="flex-1 flex min-h-0">
       <!-- Left Pane (White Programs List) -->
       <div class="w-[225px] bg-white/95 p-2 flex flex-col justify-between border-r border-blue-200/60">
-        <!-- 1. Pinned Apps / Search Results -->
+        <!-- 1. Pinned Apps (Only Games, Paint, Windows Media Player) -->
         <div v-if="!isAllPrograms" class="space-y-1 overflow-y-auto pr-1 flex-1">
+          <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 py-0.5">Quick Launch</div>
           <button
             v-for="item in filteredApps"
             :key="item.id"
@@ -26,7 +27,7 @@
 
         <!-- 2. All Programs Full Tree View -->
         <div v-else class="space-y-1 overflow-y-auto pr-1 flex-1 text-slate-900">
-          <div class="text-[10px] font-bold text-slate-500 uppercase px-1 py-0.5">Programs & Utilities</div>
+          <div class="text-[10px] font-bold text-slate-500 uppercase px-1 py-0.5">All Programs</div>
           <button
             v-for="prog in allProgramList"
             :key="prog.id"
@@ -39,28 +40,33 @@
           </button>
         </div>
 
-        <!-- All Programs Toggle Button (Clickable!) -->
-        <button
-          type="button"
-          class="pt-2 mt-1 border-t border-slate-200 flex items-center justify-between text-xs font-bold text-slate-800 hover:text-blue-700 px-1.5 py-1 rounded hover:bg-slate-100 cursor-pointer transition-colors"
-          @click="toggleAllPrograms"
+        <!-- All Programs Hover/Click Trigger (Opens on hover automatically) -->
+        <div
+          class="pt-2 mt-1 border-t border-slate-200 shrink-0"
+          @mouseenter="isAllPrograms = true"
         >
-          <span v-if="!isAllPrograms" class="flex items-center gap-1.5">
-            <span>All Programs</span>
-          </span>
-          <span v-else class="flex items-center gap-1.5">
-            <span>◀ Back</span>
-          </span>
-          <span v-if="!isAllPrograms" class="text-sky-700 text-[10px]">▶</span>
-        </button>
+          <button
+            type="button"
+            class="w-full flex items-center justify-between text-xs font-bold text-slate-800 hover:text-blue-700 px-1.5 py-1.5 rounded hover:bg-slate-100 cursor-pointer transition-colors"
+            @click="toggleAllPrograms"
+          >
+            <span v-if="!isAllPrograms" class="flex items-center gap-1.5">
+              <span>All Programs</span>
+            </span>
+            <span v-else class="flex items-center gap-1.5 text-blue-800 font-bold" @click.stop="isAllPrograms = false">
+              <span>◀ Back</span>
+            </span>
+            <span v-if="!isAllPrograms" class="text-sky-700 text-[10px]">▶</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Right Pane (Blue Quick Access Shortcuts) -->
+      <!-- Right Pane (Blue Quick Access Shortcuts: Documents, Pictures, and CV only) -->
       <div
         class="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#184279]/95 via-[#113462]/95 to-[#0a2142]/98 border-l border-white/20 text-white select-none"
         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;"
       >
-        <!-- User Avatar Header (No Personal Photo) -->
+        <!-- User Avatar Header -->
         <div class="flex items-center gap-2.5 pb-2.5 border-b border-white/20">
           <div class="w-10 h-10 rounded-md border border-white/60 overflow-hidden bg-white/20 p-0.5 shadow-sm shrink-0">
             <img src="/icons/logon-avatar.svg" alt="User Avatar" class="w-full h-full object-cover rounded-sm" />
@@ -71,52 +77,34 @@
           </div>
         </div>
 
-        <!-- Shortcuts List (High Contrast Crisp White Text) -->
-        <div class="space-y-1 py-1.5">
+        <!-- Shortcuts List: Only Documents, Pictures, and Curriculum Vitae -->
+        <div class="space-y-1.5 py-2 flex-1">
+          <!-- Documents -->
           <button
             type="button"
-            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="openExplorerNav('documents')"
           >
             <img src="/icons/folder-docs.webp" alt="" class="w-4 h-4 object-contain" />
             <span>Documents</span>
           </button>
+
+          <!-- Pictures -->
           <button
             type="button"
-            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="openExplorerNav('pictures')"
           >
             <img src="/icons/folder-pics.webp" alt="" class="w-4 h-4 object-contain" />
             <span>Pictures</span>
           </button>
-          <button
-            type="button"
-            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
-            @click="launchApp('ie')"
-          >
-            <img src="/icons/internet-explorer.svg" alt="" class="w-4 h-4 object-contain" />
-            <span>Internet Explorer</span>
-          </button>
-          <button
-            type="button"
-            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
-            @click="launchApp('player')"
-          >
-            <img src="/icons/folder-videos.webp" alt="" class="w-4 h-4 object-contain" />
-            <span>Media Player</span>
-          </button>
-          <button
-            type="button"
-            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
-            @click="openExplorerNav('about')"
-          >
-            <img src="/icons/computer.webp" alt="" class="w-4 h-4 object-contain" />
-            <span>Computer</span>
-          </button>
+
+          <!-- Curriculum Vitae (CV) -->
           <a
             href="/Restu_Utomo_CV.pdf"
-            download="Restu_Utomo_CV.pdf"
-            class="block px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-sky-200 hover:text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-sky-200 hover:text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
           >
             <img src="/icons/pdf.svg" alt="" class="w-4 h-4 object-contain" />
             <span>Curriculum Vitae</span>
@@ -170,31 +158,26 @@ const explorerNav = useState<string>('explorer-nav', () => 'about')
 const searchQuery = ref('')
 const isAllPrograms = ref(false)
 
+// Left Pinned Apps: Only Games, Paint, and Windows Media Player
 const apps = [
-  { id: 'explorer', title: 'Documents', desc: 'Portfolio documents & archives', icon: '/icons/folder-docs.webp' },
-  { id: 'ie', title: 'Internet Explorer', desc: 'Browse web & watch YouTube', icon: '/icons/internet-explorer.svg' },
-  { id: 'player', title: 'Windows Media Player', desc: 'Audio & Music Player', icon: '/icons/folder-videos.webp' },
-  { id: 'notepad', title: 'Notepad', desc: 'Welcome.txt memo', icon: '/icons/welcome-note.svg' },
-  { id: 'paint', title: 'Paint', desc: 'Creative canvas & sketch', icon: '/icons/paint.svg' },
-  { id: 'cmd', title: 'Command Prompt', desc: 'Windows command processor', icon: '/icons/command-prompt.svg' },
-  { id: 'calculator', title: 'Calculator', desc: 'Standard desktop calculator', icon: '/icons/calc.webp' },
   { id: 'games', title: 'Games', desc: 'Classic desktop games collection', icon: '/icons/games.webp' },
-  { id: 'resume', title: 'Curriculum Vitae', desc: 'PDF Document', icon: '/icons/pdf.svg', actionUrl: '/Restu_Utomo_CV.pdf' }
+  { id: 'paint', title: 'Paint', desc: 'Creative canvas & sketch', icon: '/icons/paint.svg' },
+  { id: 'player', title: 'Windows Media Player', desc: 'Audio & Music Player', icon: '/icons/wmp.svg' }
 ]
 
+// All Programs: Full list of all apps
 const allProgramList = [
   { id: 'explorer', title: 'Documents', icon: '/icons/folder-docs.webp' },
   { id: 'ie', title: 'Internet Explorer', icon: '/icons/internet-explorer.svg' },
-  { id: 'player', title: 'Windows Media Player', icon: '/icons/folder-videos.webp' },
-  { id: 'notepad', title: 'Notepad', icon: '/icons/welcome-note.svg' },
+  { id: 'player', title: 'Windows Media Player', icon: '/icons/wmp.svg' },
   { id: 'paint', title: 'Paint', icon: '/icons/paint.svg' },
-  { id: 'cmd', title: 'Command Prompt', icon: '/icons/command-prompt.svg' },
-  { id: 'calculator', title: 'Calculator', icon: '/icons/calc.webp' },
   { id: 'games', title: 'Games', icon: '/icons/games.webp' },
+  { id: 'calculator', title: 'Calculator', icon: '/icons/calc.webp' },
+  { id: 'notepad', title: 'Notepad', icon: '/icons/welcome-note.svg' },
+  { id: 'cmd', title: 'Command Prompt', icon: '/icons/command-prompt.svg' },
   { id: 'recycle', title: 'Recycle Bin', icon: '/icons/bin.webp' },
   { id: 'docs', title: 'Documents Library', icon: '/icons/folder-docs.webp', nav: 'documents' as const },
   { id: 'pics', title: 'Pictures Library', icon: '/icons/folder-pics.webp', nav: 'pictures' as const },
-  { id: 'vids', title: 'Videos Library', icon: '/icons/folder-videos.webp', nav: 'videos' as const },
   { id: 'cv', title: 'Curriculum Vitae (PDF)', icon: '/icons/pdf.svg', actionUrl: '/Restu_Utomo_CV.pdf' }
 ]
 

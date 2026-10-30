@@ -26,7 +26,7 @@
 
       <!-- Main Desktop Workspace Area -->
       <div class="flex-1 relative overflow-hidden">
-        <!-- Desktop Icons Column Grid (Exact 42px icons in 64px columns) -->
+        <!-- Desktop Icons Column Grid (Exact 4 icons requested: Documents, Internet Explorer, Resume, Recycle Bin) -->
         <div class="absolute top-6 left-6 flex flex-col gap-4 z-10">
           <DesktopIcon
             label="Documents"
@@ -39,40 +39,10 @@
             target-id="ie"
           />
           <DesktopIcon
-            label="Windows Media Player"
-            icon="/icons/folder-videos.webp"
-            target-id="player"
-          />
-          <DesktopIcon
             label="Resume.pdf"
             icon="/icons/pdf.svg"
             target-id=""
             action-url="/Restu_Utomo_CV.pdf"
-          />
-          <DesktopIcon
-            label="Welcome.txt"
-            icon="/icons/welcome-note.svg"
-            target-id="notepad"
-          />
-          <DesktopIcon
-            label="Calculator"
-            icon="/icons/calc.webp"
-            target-id="calculator"
-          />
-          <DesktopIcon
-            label="Games"
-            icon="/icons/games.webp"
-            target-id="games"
-          />
-          <DesktopIcon
-            label="Paint"
-            icon="/icons/paint.svg"
-            target-id="paint"
-          />
-          <DesktopIcon
-            label="cmd.exe"
-            icon="/icons/command-prompt.svg"
-            target-id="cmd"
           />
           <DesktopIcon
             label="Recycle Bin"

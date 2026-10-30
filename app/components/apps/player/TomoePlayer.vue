@@ -1,10 +1,9 @@
 <template>
-  <WindowFrame id="player" title="Windows Media Player" icon="/icons/folder-videos.webp">
+  <WindowFrame id="player" title="Windows Media Player" icon="/icons/wmp.svg">
     <div class="flex flex-col h-full bg-[#0a0f18] text-white select-none overflow-hidden font-sans">
-      <!-- Hidden native HTML5 Audio element -->
+      <!-- Native HTML5 Audio element -->
       <audio
         ref="audioRef"
-        :src="currentTrack.src"
         preload="metadata"
         @timeupdate="onTimeUpdate"
         @loadedmetadata="onLoadedMetadata"
@@ -13,38 +12,38 @@
         @pause="isPlaying = false"
       />
 
-      <!-- 1. Top Windows 7 WMP Toolbar -->
+      <!-- 1. Top Windows 7 WMP Glass Bar -->
       <div class="shrink-0 bg-gradient-to-b from-[#24334a] via-[#162132] to-[#0c1420] border-b border-blue-900/40 px-3 py-1.5 flex items-center justify-between text-xs">
         <div class="flex items-center gap-2">
-          <img src="/icons/folder-videos.webp" alt="" class="w-4 h-4 object-contain" />
-          <span class="font-bold text-slate-200 tracking-wide text-xs">Now Playing</span>
+          <img src="/icons/wmp.svg" alt="" class="w-4 h-4 object-contain" />
+          <span class="font-bold text-slate-200 tracking-wide text-xs">Windows Media Player</span>
         </div>
 
         <div class="flex items-center gap-2">
-          <!-- Visualizer Mode Toggle -->
-          <div class="flex items-center gap-1 bg-black/40 px-2 py-0.5 rounded border border-white/10 text-[11px]">
-            <span class="text-slate-400">Mode:</span>
+          <!-- Visualizer Mode Buttons -->
+          <div class="flex items-center gap-1 bg-black/60 p-0.5 rounded border border-white/15 text-[11px]">
+            <span class="text-slate-400 text-[10px] pl-1 pr-0.5">Mode:</span>
             <button
               type="button"
-              class="px-1.5 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors"
-              :class="visualizerMode === 'bars' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'"
-              @click="visualizerMode = 'bars'"
+              class="px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all"
+              :class="visualizerMode === 'bars' ? 'bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-xs' : 'text-slate-300 hover:text-white hover:bg-white/10'"
+              @click="setVisualizerMode('bars')"
             >
               Bars
             </button>
             <button
               type="button"
-              class="px-1.5 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors"
-              :class="visualizerMode === 'alchemy' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'"
-              @click="visualizerMode = 'alchemy'"
+              class="px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all"
+              :class="visualizerMode === 'alchemy' ? 'bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-xs' : 'text-slate-300 hover:text-white hover:bg-white/10'"
+              @click="setVisualizerMode('alchemy')"
             >
               Alchemy
             </button>
             <button
               type="button"
-              class="px-1.5 py-0.5 rounded text-[10px] font-semibold cursor-pointer transition-colors"
-              :class="visualizerMode === 'wave' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'"
-              @click="visualizerMode = 'wave'"
+              class="px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all"
+              :class="visualizerMode === 'wave' ? 'bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-xs' : 'text-slate-300 hover:text-white hover:bg-white/10'"
+              @click="setVisualizerMode('wave')"
             >
               Wave
             </button>
@@ -54,7 +53,7 @@
           <button
             type="button"
             class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold cursor-pointer flex items-center gap-1.5 transition-colors"
-            :class="showPlaylist ? 'bg-blue-600/60 border-blue-400 text-white' : 'text-slate-300'"
+            :class="showPlaylist ? 'bg-blue-600/70 border-blue-400 text-white shadow-xs' : 'text-slate-300'"
             @click="showPlaylist = !showPlaylist"
           >
             <span>☰</span>
@@ -63,54 +62,56 @@
         </div>
       </div>
 
-      <!-- 2. Main Stage Area: Visualizer & Track Card + Playlist Pane -->
-      <div class="flex-1 flex min-h-0 relative bg-black">
-        <!-- Visualizer & Active Stage Canvas -->
-        <div class="flex-1 relative flex items-center justify-center overflow-hidden">
+      <!-- 2. Main Stage Area: Full-Bleed Visualizer Canvas + Sleek Info Pill + Playlist -->
+      <div class="flex-1 flex min-h-0 relative bg-black overflow-hidden">
+        <!-- Visualizer Canvas Container -->
+        <div class="flex-1 relative flex items-center justify-center overflow-hidden h-full">
+          <!-- Canvas Full Stage -->
           <canvas
             ref="canvasRef"
-            width="600"
-            height="340"
-            class="w-full h-full block absolute inset-0 object-cover"
+            class="w-full h-full block absolute inset-0 cursor-pointer"
+            @click="togglePlay"
           />
 
-          <!-- Ambient Glow vignette -->
-          <div class="absolute inset-0 bg-radial from-transparent via-black/40 to-black/80 pointer-events-none" />
+          <!-- Ambient Vignette -->
+          <div class="absolute inset-0 bg-radial from-transparent via-black/20 to-black/70 pointer-events-none" />
 
-          <!-- Center Track Card Overlay -->
-          <div class="relative z-10 flex flex-col items-center text-center p-4 max-w-sm bg-black/50 backdrop-blur-md rounded-2xl border border-white/15 shadow-2xl">
-            <!-- Vinyl Record Spinning Animation -->
+          <!-- Top-Center Track Info Floating Pill (Does NOT obstruct visualizer) -->
+          <div class="absolute top-3 z-10 flex items-center gap-3 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/20 shadow-xl max-w-[85%] truncate pointer-events-auto">
+            <!-- Mini Vinyl Disc spinning icon -->
             <div
-              class="w-24 h-24 rounded-full border-4 border-slate-700 bg-gradient-to-tr from-slate-900 via-neutral-900 to-black shadow-2xl flex items-center justify-center relative mb-3 transition-transform"
-              :class="isPlaying ? 'animate-[spin_4s_linear_infinite]' : ''"
+              class="w-6 h-6 rounded-full border border-slate-600 bg-gradient-to-tr from-slate-800 to-black flex items-center justify-center shrink-0"
+              :class="isPlaying ? 'animate-[spin_3s_linear_infinite]' : ''"
             >
-              <div class="w-16 h-16 rounded-full border border-white/20 bg-gradient-to-br from-blue-700 to-indigo-900 flex items-center justify-center shadow-inner">
-                <span class="text-white text-lg">♫</span>
-              </div>
-              <div class="w-3 h-3 rounded-full bg-white border border-slate-900" />
+              <div class="w-2.5 h-2.5 rounded-full bg-blue-500" />
             </div>
 
-            <!-- Track Metadata -->
-            <div class="font-bold text-sm text-white tracking-wide truncate w-full">
-              {{ currentTrack.title }}
+            <!-- Track Info -->
+            <div class="flex items-center gap-2 truncate text-xs">
+              <span class="font-bold text-white truncate">{{ currentTrack.title }}</span>
+              <span class="text-sky-300/80 text-[11px] truncate">by {{ currentTrack.artist }}</span>
             </div>
-            <div class="text-xs text-sky-300 mt-0.5 truncate w-full">
-              {{ currentTrack.artist }}
-            </div>
-            <div class="text-[10px] text-slate-400 mt-1 px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
-              {{ currentTrack.genre }} • {{ currentTrack.license }}
-            </div>
+
+            <!-- License Badge -->
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/15 text-slate-300 shrink-0">
+              {{ currentTrack.license }}
+            </span>
+          </div>
+
+          <!-- Bottom Visualizer Mode Status Hint -->
+          <div class="absolute bottom-2 left-3 z-10 text-[10px] font-mono text-slate-500 uppercase tracking-widest pointer-events-none">
+            {{ visualizerMode }} Visualizer • {{ isPlaying ? 'Playing' : 'Paused' }}
           </div>
         </div>
 
         <!-- Collapsible Playlist Side Pane -->
         <div
           v-if="showPlaylist"
-          class="w-64 bg-[#0d1624] border-l border-blue-900/40 flex flex-col shrink-0 text-xs shadow-xl animate-in slide-in-from-right duration-150"
+          class="w-64 bg-[#0d1624]/95 backdrop-blur-md border-l border-blue-900/40 flex flex-col shrink-0 text-xs shadow-2xl transition-all"
         >
-          <div class="p-2.5 bg-[#142033] border-b border-blue-900/30 flex items-center justify-between text-slate-300 font-bold text-[11px] uppercase tracking-wider">
-            <span>Library Tracks</span>
-            <span class="text-[10px] text-slate-400 font-mono">{{ playlist.length }} items</span>
+          <div class="p-2.5 bg-[#142033] border-b border-blue-900/40 flex items-center justify-between text-slate-300 font-bold text-[11px] uppercase tracking-wider">
+            <span>Audio Library</span>
+            <span class="text-[10px] text-slate-400 font-mono">{{ playlist.length }} tracks</span>
           </div>
 
           <div class="flex-1 overflow-y-auto divide-y divide-white/5">
@@ -119,10 +120,10 @@
               :key="track.id"
               type="button"
               class="w-full p-2.5 flex items-center gap-2.5 text-left transition-colors cursor-pointer"
-              :class="currentTrackIndex === idx ? 'bg-blue-900/40 text-sky-200 border-l-2 border-sky-400' : 'text-slate-300 hover:bg-white/5'"
-              @click="selectTrack(idx)"
+              :class="currentTrackIndex === idx ? 'bg-blue-900/50 text-sky-200 border-l-3 border-sky-400' : 'text-slate-300 hover:bg-white/5'"
+              @click="loadAndPlayTrack(idx, true)"
             >
-              <span class="w-4 text-center font-mono text-[10px] text-slate-500">
+              <span class="w-4 text-center font-mono text-[10px]" :class="currentTrackIndex === idx && isPlaying ? 'text-sky-400 animate-pulse' : 'text-slate-500'">
                 <template v-if="currentTrackIndex === idx && isPlaying">▶</template>
                 <template v-else>{{ idx + 1 }}</template>
               </span>
@@ -150,7 +151,7 @@
           @click="seekTimeline"
         >
           <div
-            class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
+            class="h-full bg-gradient-to-r from-blue-500 via-sky-400 to-cyan-300 rounded-full"
             :style="{ width: `${progressPercent}%` }"
           />
         </div>
@@ -265,7 +266,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import WindowFrame from '~/components/common/WindowFrame.vue'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
@@ -344,15 +345,55 @@ const formatTime = (secs: number) => {
 const formattedCurrentTime = computed(() => formatTime(currentTime.value))
 const formattedDuration = computed(() => formatTime(duration.value))
 
-const togglePlay = () => {
+const setVisualizerMode = (mode: 'bars' | 'alchemy' | 'wave') => {
+  playSound('click')
+  visualizerMode.value = mode
+}
+
+// Robust, direct track switcher
+const loadAndPlayTrack = async (idx: number, shouldPlay: boolean = true) => {
+  playSound('click')
+  if (idx < 0 || idx >= playlist.length) return
+  currentTrackIndex.value = idx
+  const track = playlist[idx]
+
+  await nextTick()
+
+  if (audioRef.value) {
+    audioRef.value.src = track.src
+    audioRef.value.currentTime = 0
+    audioRef.value.load()
+
+    if (shouldPlay) {
+      try {
+        await audioRef.value.play()
+        isPlaying.value = true
+      } catch (err) {
+        console.warn('Playback error:', err)
+      }
+    }
+  }
+}
+
+const togglePlay = async () => {
   playSound('click')
   if (!audioRef.value) return
+
   if (isPlaying.value) {
     audioRef.value.pause()
+    isPlaying.value = false
   } else {
-    audioRef.value.play().catch(() => {
-      // Autoplay restriction guard
-    })
+    // If src is empty or mismatched, set it explicitly
+    if (!audioRef.value.src || !audioRef.value.src.includes(currentTrack.value.src)) {
+      audioRef.value.src = currentTrack.value.src
+      audioRef.value.load()
+    }
+    try {
+      await audioRef.value.play()
+      isPlaying.value = true
+    } catch (err) {
+      console.warn('Playback error:', err)
+    }
   }
 }
 
@@ -364,30 +405,19 @@ const stopTrack = () => {
   isPlaying.value = false
 }
 
-const selectTrack = (idx: number) => {
-  playSound('click')
-  currentTrackIndex.value = idx
-  if (audioRef.value) {
-    audioRef.value.currentTime = 0
-    audioRef.value.play().catch(() => {})
-  }
-}
-
 const nextTrack = () => {
   playSound('click')
+  let nextIdx = (currentTrackIndex.value + 1) % playlist.length
   if (isShuffle.value) {
-    const nextIdx = Math.floor(Math.random() * playlist.length)
-    selectTrack(nextIdx)
-  } else {
-    const nextIdx = (currentTrackIndex.value + 1) % playlist.length
-    selectTrack(nextIdx)
+    nextIdx = Math.floor(Math.random() * playlist.length)
   }
+  loadAndPlayTrack(nextIdx, isPlaying.value || true)
 }
 
 const prevTrack = () => {
   playSound('click')
   const prevIdx = (currentTrackIndex.value - 1 + playlist.length) % playlist.length
-  selectTrack(prevIdx)
+  loadAndPlayTrack(prevIdx, isPlaying.value || true)
 }
 
 const onTimeUpdate = () => {
@@ -434,77 +464,165 @@ const toggleMute = () => {
   audioRef.value.muted = isMuted.value
 }
 
+// Equalizer bar peak hold tracking
+const peaks = ref<number[]>(Array(36).fill(0))
+
 // Visualizer Canvas Rendering
 const renderVisualizer = () => {
   if (!canvasRef.value) return
-  const ctx = canvasRef.value.getContext('2d')
+  const canvas = canvasRef.value
+  const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  const width = canvasRef.value.width
-  const height = canvasRef.value.height
+  // Auto-resize canvas to match its bounding client rect
+  const rect = canvas.getBoundingClientRect()
+  if (canvas.width !== Math.floor(rect.width) || canvas.height !== Math.floor(rect.height)) {
+    if (rect.width > 0 && rect.height > 0) {
+      canvas.width = Math.floor(rect.width)
+      canvas.height = Math.floor(rect.height)
+    }
+  }
+
+  const width = canvas.width
+  const height = canvas.height
 
   ctx.clearRect(0, 0, width, height)
 
-  const t = Date.now() / 600
+  const t = Date.now() / 350
+  const active = isPlaying.value
 
   if (visualizerMode.value === 'bars') {
-    // Mode A: Classic Windows 7 Equalizer Bars
+    // Mode A: Classic Windows 7 Equalizer Spectrum Bars
     const barCount = 36
-    const barWidth = width / barCount - 3
-    for (let i = 0; i < barCount; i++) {
-      const freq = Math.sin(t * 3 + i * 0.4) * 0.5 + 0.5
-      const h = isPlaying.value ? (freq * (height * 0.7) + 10) : 6
-      const x = i * (barWidth + 3) + 2
-      const y = height - h
+    const spacing = 4
+    const totalSpacing = spacing * (barCount - 1)
+    const barWidth = Math.max(3, (width - 40 - totalSpacing) / barCount)
+    const startX = 20
 
-      // Green to Cyan to Orange gradient
-      const grad = ctx.createLinearGradient(0, height, 0, 0)
+    for (let i = 0; i < barCount; i++) {
+      // Dynamic frequency rhythm based on position and time
+      const wave1 = Math.sin(t * 2.5 + i * 0.35)
+      const wave2 = Math.cos(t * 1.8 - i * 0.2)
+      const wave3 = Math.sin(t * 4.2 + i * 0.8)
+      const rawAmp = (wave1 + wave2 * 0.7 + wave3 * 0.4 + 2.1) / 4.2
+
+      const h = active ? Math.max(8, rawAmp * (height * 0.65)) : 4
+      const x = startX + i * (barWidth + spacing)
+      const y = height - 20 - h
+
+      // Update peak
+      if (h > (peaks.value[i] || 0)) {
+        peaks.value[i] = h
+      } else {
+        peaks.value[i] = Math.max(4, (peaks.value[i] || 0) - 1.5)
+      }
+
+      // Bar Gradient: Green to Cyan to Orange/Red
+      const grad = ctx.createLinearGradient(0, height - 20, 0, height - 20 - height * 0.65)
       grad.addColorStop(0, '#00e676')
-      grad.addColorStop(0.6, '#00d2ff')
-      grad.addColorStop(1, '#ff9100')
+      grad.addColorStop(0.5, '#00b0ff')
+      grad.addColorStop(0.85, '#ffea00')
+      grad.addColorStop(1, '#ff3d00')
 
       ctx.fillStyle = grad
       ctx.fillRect(x, y, barWidth, h)
 
-      // Peak Cap
+      // Peak Hold Cap
+      const peakY = height - 20 - peaks.value[i]
       ctx.fillStyle = '#ffffff'
-      ctx.fillRect(x, Math.max(0, y - 3), barWidth, 2)
+      ctx.fillRect(x, peakY - 3, barWidth, 2)
+
+      // Soft reflection underneath floor
+      ctx.fillStyle = 'rgba(0, 176, 255, 0.15)'
+      ctx.fillRect(x, height - 16, barWidth, Math.min(12, h * 0.2))
     }
   } else if (visualizerMode.value === 'alchemy') {
-    // Mode B: WMP Alchemy concentric color waves
+    // Mode B: WMP Alchemy Pulsating Rotating Rings
     const cx = width / 2
-    const cy = height / 2
-    const ringCount = 8
+    const cy = height / 2 + 10
+    const ringCount = 10
+
     for (let r = 1; r <= ringCount; r++) {
-      const radius = isPlaying.value
-        ? ((t * 20 + r * 25) % (width * 0.45))
-        : r * 20
-      ctx.beginPath()
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2)
-      ctx.strokeStyle = `hsla(${(t * 40 + r * 30) % 360}, 90%, 65%, ${isPlaying.value ? 0.35 : 0.15})`
-      ctx.lineWidth = isPlaying.value ? 3 : 1
-      ctx.stroke()
+      const pulse = active ? Math.sin(t * 3 + r * 0.7) * 15 : 0
+      const radius = active
+        ? ((t * 25 + r * 30) % (Math.min(width, height) * 0.52)) + pulse
+        : r * 22
+
+      if (radius > 5) {
+        ctx.save()
+        ctx.translate(cx, cy)
+        ctx.rotate((t * 0.2 * (r % 2 === 0 ? 1 : -1)) + r * 0.2)
+
+        ctx.beginPath()
+        const petals = 6 + (r % 4) * 2
+        for (let a = 0; a <= Math.PI * 2; a += 0.05) {
+          const rMod = radius + Math.sin(a * petals + t * 2) * (active ? 12 : 2)
+          const px = Math.cos(a) * rMod
+          const py = Math.sin(a) * rMod
+          if (a === 0) ctx.moveTo(px, py)
+          else ctx.lineTo(px, py)
+        }
+        ctx.closePath()
+
+        const hue = (t * 35 + r * 28) % 360
+        ctx.strokeStyle = `hsla(${hue}, 95%, 65%, ${active ? 0.65 : 0.25})`
+        ctx.lineWidth = active ? 2.5 : 1
+        ctx.shadowColor = `hsla(${hue}, 100%, 70%, 0.8)`
+        ctx.shadowBlur = active ? 14 : 4
+        ctx.stroke()
+        ctx.restore()
+      }
     }
   } else if (visualizerMode.value === 'wave') {
-    // Mode C: Oscilloscope smooth sine wave
+    // Mode C: Oscilloscope Multi-Harmonic Neon Wave
+    const cy = height / 2 + 15
+    const ampBase = active ? 45 : 4
+
+    // Primary Neon Cyan Wave
     ctx.beginPath()
     ctx.lineWidth = 3
-    ctx.strokeStyle = '#00d2ff'
-    for (let x = 0; x < width; x += 4) {
-      const amp = isPlaying.value ? 40 : 5
-      const y = height / 2 + Math.sin(x * 0.03 + t * 4) * amp + Math.cos(x * 0.05 - t * 2) * (amp * 0.5)
+    ctx.strokeStyle = '#00f5ff'
+    ctx.shadowColor = '#00f5ff'
+    ctx.shadowBlur = active ? 16 : 4
+
+    for (let x = 0; x <= width; x += 3) {
+      const wave1 = Math.sin(x * 0.02 + t * 4) * ampBase
+      const wave2 = Math.cos(x * 0.04 - t * 2.5) * (ampBase * 0.5)
+      const wave3 = Math.sin(x * 0.008 + t) * (ampBase * 0.8)
+      const y = cy + wave1 + wave2 + wave3
+
       if (x === 0) ctx.moveTo(x, y)
       else ctx.lineTo(x, y)
     }
     ctx.stroke()
+
+    // Secondary Magenta Echo Wave
+    if (active) {
+      ctx.beginPath()
+      ctx.lineWidth = 1.5
+      ctx.strokeStyle = '#ff007f'
+      ctx.shadowColor = '#ff007f'
+      ctx.shadowBlur = 10
+
+      for (let x = 0; x <= width; x += 4) {
+        const wave = Math.sin(x * 0.025 - t * 3) * (ampBase * 0.7)
+        const y = cy + wave
+        if (x === 0) ctx.moveTo(x, y)
+        else ctx.lineTo(x, y)
+      }
+      ctx.stroke()
+    }
   }
 
   animFrameId = requestAnimationFrame(renderVisualizer)
 }
 
 onMounted(() => {
+  // Initialize audio element with first track
   if (audioRef.value) {
+    audioRef.value.src = playlist[0].src
     audioRef.value.volume = volume.value
+    audioRef.value.load()
   }
   renderVisualizer()
 })
