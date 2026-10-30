@@ -6,7 +6,7 @@
     <!-- Phase 2: Starting TomoeOS Boot Screen -->
     <AeroBootScreen v-else-if="osPhase === 'boot'" :progress="bootProgress" />
 
-    <!-- Phase 3: Windows 7 Logon Screen -->
+    <!-- Phase 3: Logon Screen -->
     <AeroLogonScreen
       v-else-if="osPhase === 'logon'"
       @login="handleLogin"
@@ -76,7 +76,7 @@
         @shutdown="handleShutdown"
       />
 
-      <!-- Windows 7 Aero Taskbar -->
+      <!-- Aero Taskbar -->
       <AeroTaskbar :is-start-open="isStartOpen" @toggle-start="toggleStartMenu" />
     </template>
   </div>

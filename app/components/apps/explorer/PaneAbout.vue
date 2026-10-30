@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 space-y-4 text-slate-800 text-xs">
-    <!-- Header Account Tile (Windows 7 System Properties style) -->
+    <!-- Header Account Tile (System Properties style) -->
     <div class="flex items-center gap-3.5 pb-3 border-b border-slate-200">
       <div class="w-14 h-14 rounded-full p-0.5 bg-gradient-to-br from-sky-400 to-blue-700 shadow-md overflow-hidden shrink-0">
         <img src="/images/restu-photo.webp" alt="Restu Utomo" class="w-full h-full object-cover rounded-full" />
@@ -21,7 +21,7 @@
       </p>
     </div>
 
-    <!-- System Specifications (Authentic Windows 7 System Properties List) -->
+    <!-- System Specifications (System Properties List) -->
     <div class="mt-4 pt-3 border-t border-slate-300/80 space-y-2">
       <div class="text-[11px] font-bold text-blue-950">
         Academic & Technical Specifications

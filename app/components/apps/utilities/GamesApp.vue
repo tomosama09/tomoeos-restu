@@ -1,7 +1,7 @@
 <template>
   <WindowFrame id="games" :title="windowTitle" icon="/icons/games.webp">
     <div class="flex flex-col h-full bg-[#f4f7fa] text-slate-800 select-none overflow-hidden font-sans">
-      <!-- 1. Top Windows 7 Aero Command Bar -->
+      <!-- 1. Top Aero Command Bar -->
       <div class="shrink-0 bg-gradient-to-b from-[#fbfdff] via-[#e8f1fb] to-[#d8e6f7] border-b border-[#a9c3e2] px-3 py-1.5 flex items-center justify-between text-xs shadow-2xs">
         <div class="flex items-center gap-2">
           <!-- Back button when inside a game -->
@@ -47,7 +47,7 @@
         <div v-if="activeGame === null" class="p-4 flex flex-col gap-4">
           <div>
             <h2 class="text-base font-bold text-blue-950">Games Library</h2>
-            <p class="text-xs text-slate-500">Select a game to start playing classic Windows desktop titles.</p>
+            <p class="text-xs text-slate-500">Select a game to start playing classic desktop titles.</p>
           </div>
 
           <!-- Game Cards Grid -->
@@ -81,7 +81,7 @@
 
               <!-- Action Button -->
               <div class="mt-4 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-[10px] text-slate-400 font-medium">Microsoft Studios</span>
+                <span class="text-[10px] text-slate-400 font-medium">Classic Collection</span>
                 <button
                   type="button"
                   class="h-6 px-3 rounded bg-gradient-to-b from-[#e3f0fc] to-[#bedbfa] group-hover:from-[#cbe2f8] group-hover:to-[#a9d0f7] border border-[#6b9dce] text-xs font-bold text-blue-950 flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
@@ -117,7 +117,7 @@
           >
             Back to Library
           </button>
-          <span>Windows 7 Aero Edition</span>
+          <span>Aero Edition</span>
         </div>
       </div>
     </div>

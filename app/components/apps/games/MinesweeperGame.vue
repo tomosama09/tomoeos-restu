@@ -336,7 +336,7 @@ const getCellClasses = (cell: Cell) => {
   if (cell.flagged) {
     return 'bg-gradient-to-b from-[#bfe0ff] to-[#7db4ea] border-t border-l border-white border-b-2 border-r-2 border-[#4174a7] shadow-xs'
   }
-  // Unrevealed Windows 7 Crystal Tile
+  // Unrevealed Crystal Tile
   return 'bg-gradient-to-b from-[#ffffff] via-[#d7e8fa] to-[#a9cef5] hover:brightness-105 border-t border-l border-white border-b-2 border-r-2 border-[#5480ab] shadow-xs text-transparent'
 }
 

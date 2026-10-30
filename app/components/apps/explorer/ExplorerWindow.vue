@@ -1,7 +1,7 @@
 <template>
   <WindowFrame id="explorer" title="Documents" icon="/icons/folder-docs.webp">
     <div class="flex flex-col h-full overflow-hidden select-none">
-      <!-- Windows 7 Explorer Menubar -->
+      <!-- Explorer Menubar -->
       <div class="explorer-menubar shrink-0 bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300/80 px-2 py-0.5 flex items-center gap-3 text-xs text-slate-700">
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'about'">File</button>
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'services'">Edit</button>
@@ -9,7 +9,7 @@
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'contact'">Help</button>
       </div>
 
-      <!-- Windows 7 Explorer Address Bar Toolbar -->
+      <!-- Explorer Address Bar Toolbar -->
       <div class="explorer-toolbar shrink-0 bg-gradient-to-b from-white to-slate-100 border-b border-slate-300 p-1.5 flex items-center gap-2">
         <!-- Back / Forward Buttons -->
         <div class="flex items-center gap-1 shrink-0">

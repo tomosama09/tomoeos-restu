@@ -49,7 +49,7 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
   },
   player: {
     id: 'player',
-    title: 'Windows Media Player',
+    title: 'Media Player',
     icon: '/icons/wmp.svg',
     isOpen: false,
     isMinimized: false,

@@ -7,7 +7,7 @@
     <div class="flex-1 flex min-h-0">
       <!-- Left Pane (White Programs List) -->
       <div class="w-[225px] bg-white/95 p-2 flex flex-col justify-between border-r border-blue-200/60">
-        <!-- 1. Pinned Apps (Only Games, Paint, Windows Media Player) -->
+        <!-- 1. Pinned Apps (Only Games, Paint, Media Player) -->
         <div v-if="!isAllPrograms" class="space-y-1 overflow-y-auto pr-1 flex-1">
           <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 py-0.5">Quick Launch</div>
           <button
@@ -158,18 +158,18 @@ const explorerNav = useState<string>('explorer-nav', () => 'about')
 const searchQuery = ref('')
 const isAllPrograms = ref(false)
 
-// Left Pinned Apps: Only Games, Paint, and Windows Media Player
+// Left Pinned Apps: Only Games, Paint, and Media Player
 const apps = [
   { id: 'games', title: 'Games', desc: 'Classic desktop games collection', icon: '/icons/games.webp' },
   { id: 'paint', title: 'Paint', desc: 'Creative canvas & sketch', icon: '/icons/paint.svg' },
-  { id: 'player', title: 'Windows Media Player', desc: 'Audio & Music Player', icon: '/icons/wmp.svg' }
+  { id: 'player', title: 'Media Player', desc: 'Audio & Music Player', icon: '/icons/wmp.svg' }
 ]
 
 // All Programs: Full list of all apps
 const allProgramList = [
   { id: 'explorer', title: 'Documents', icon: '/icons/folder-docs.webp' },
   { id: 'ie', title: 'Internet Explorer', icon: '/icons/internet-explorer.svg' },
-  { id: 'player', title: 'Windows Media Player', icon: '/icons/wmp.svg' },
+  { id: 'player', title: 'Media Player', icon: '/icons/wmp.svg' },
   { id: 'paint', title: 'Paint', icon: '/icons/paint.svg' },
   { id: 'games', title: 'Games', icon: '/icons/games.webp' },
   { id: 'calculator', title: 'Calculator', icon: '/icons/calc.webp' },

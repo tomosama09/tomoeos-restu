@@ -17,7 +17,7 @@
 
       <!-- Statusbar -->
       <div class="h-5 bg-slate-100 border-t border-slate-200 px-3 flex items-center justify-between text-[10px] text-slate-500 shrink-0">
-        <span>Windows (CRLF) • UTF-8</span>
+        <span>CRLF • UTF-8</span>
         <span>Ln {{ lineCount }}, Col {{ colCount }}</span>
       </div>
     </div>
@@ -40,7 +40,7 @@ I built this portfolio operating system inspired by late-2000s desktop interface
 Quick navigation:
 - Documents: Complete case studies, posters, and background
 - Internet Explorer: Video showreels directly on YouTube
-- Media Player: Music player with retro visualizer
+- Media Player: Audio player with curated tracks
 - Paint: Canvas sketching tools
 - Games: Classic desktop games
 - Command Prompt: Terminal navigation

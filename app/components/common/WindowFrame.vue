@@ -25,7 +25,7 @@
         </span>
       </div>
 
-      <!-- Caption Controls (Windows 7 Aero style) -->
+      <!-- Caption Controls (Aero style) -->
       <div class="aero-caption-controls flex items-center gap-0.5 pointer-events-auto">
         <!-- Minimize -->
         <button

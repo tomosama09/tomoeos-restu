@@ -1,7 +1,7 @@
 <template>
   <WindowFrame id="paint" title="Untitled - Paint" icon="/icons/paint.svg">
     <div class="flex flex-col h-full bg-[#f0f4f9] text-slate-800 select-none overflow-hidden font-sans">
-      <!-- 1. Paint Ribbon Toolbar (Windows 7 Aero style) -->
+      <!-- 1. Paint Ribbon Toolbar (Aero style) -->
       <div class="shrink-0 bg-gradient-to-b from-[#fbfdff] via-[#eef4fa] to-[#d8e6f7] border-b border-[#a9c3e2] px-3 py-1.5 flex flex-wrap items-center gap-3 shadow-2xs">
         <!-- Tools Section -->
         <div class="flex flex-col gap-0.5 border-r border-[#c2d7ed] pr-2.5">
