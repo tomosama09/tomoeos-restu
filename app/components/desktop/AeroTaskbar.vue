@@ -26,16 +26,17 @@
           >
             <button
               type="button"
-              class="h-8 px-2.5 rounded-sm flex items-center gap-2 max-w-[170px] min-w-[110px] text-left transition-all border cursor-pointer select-none"
+              class="h-8 px-2 sm:px-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 max-w-[40px] sm:max-w-[170px] min-w-[36px] sm:min-w-[110px] text-left transition-all border cursor-pointer select-none"
               :class="[
                 isActive(String(id))
                   ? 'bg-white/30 border-white/60 shadow-inner text-white'
                   : 'bg-white/10 hover:bg-white/20 border-white/20 text-slate-200'
               ]"
+              :title="win.title"
               @click="handleTaskClick(String(id))"
             >
-              <img :src="win.icon" alt="" class="w-4 h-4 shrink-0" />
-              <span class="text-xs font-medium truncate drop-shadow-sm">
+              <img :src="win.icon" :alt="win.title" class="w-4 h-4 shrink-0" />
+              <span class="hidden sm:inline text-xs font-medium truncate drop-shadow-sm">
                 {{ win.title }}
               </span>
             </button>
@@ -52,11 +53,11 @@
     </div>
 
     <!-- Right Section: System Tray & Clock & Show Desktop -->
-    <div class="flex items-center gap-2 h-full shrink-0 pl-2">
-      <!-- Volume Indicator Icon -->
+    <div class="flex items-center gap-1 sm:gap-2 h-full shrink-0 pl-1 sm:pl-2">
+      <!-- Volume Indicator Icon (Desktop only) -->
       <button
         type="button"
-        class="w-6 h-6 flex items-center justify-center rounded hover:bg-white/20 text-slate-200"
+        class="hidden sm:flex w-6 h-6 items-center justify-center rounded hover:bg-white/20 text-slate-200 cursor-pointer"
         title="Volume"
         @click="playSound('click')"
       >
@@ -66,15 +67,15 @@
       </button>
 
       <!-- Digital Clock & Date -->
-      <div class="flex flex-col items-center justify-center px-2 py-0.5 rounded hover:bg-white/10 cursor-default text-[10px] leading-tight text-white drop-shadow-sm font-sans">
+      <div class="flex flex-col items-center justify-center px-1.5 sm:px-2 py-0.5 rounded hover:bg-white/10 cursor-default text-[10px] leading-tight text-white drop-shadow-sm font-sans">
         <span class="font-bold tracking-wider">{{ currentTime }}</span>
-        <span class="text-slate-300 text-[9px]">{{ currentDate }}</span>
+        <span class="hidden sm:inline text-slate-300 text-[9px]">{{ currentDate }}</span>
       </div>
 
       <!-- Show Desktop Peek Button (Rightmost strip) -->
       <button
         type="button"
-        class="w-3 h-full border-l border-white/30 hover:bg-white/30 active:bg-white/50 transition-colors ml-1 cursor-pointer"
+        class="w-2.5 sm:w-3 h-full border-l border-white/30 hover:bg-white/30 active:bg-white/50 transition-colors ml-0.5 sm:ml-1 cursor-pointer"
         title="Show Desktop"
         @click="handleShowDesktop"
       />

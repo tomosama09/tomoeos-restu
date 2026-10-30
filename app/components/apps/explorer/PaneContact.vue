@@ -17,14 +17,14 @@
         </div>
       </div>
 
-      <div class="pt-2 border-t border-blue-100 space-y-2 text-xs">
-        <div class="flex items-center justify-between">
+      <div class="pt-2 border-t border-blue-100 space-y-2.5 text-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <span class="text-slate-500 font-medium">Direct Email:</span>
           <a href="mailto:rstt.tomo@gmail.com" class="text-blue-700 font-bold hover:underline">
             rstt.tomo@gmail.com
           </a>
         </div>
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <span class="text-slate-500 font-medium">Verified Resume:</span>
           <a href="/Restu_Utomo_CV.pdf" download="Restu_Utomo_CV.pdf" class="text-blue-700 font-bold hover:underline flex items-center gap-1">
             <span>Download Curriculum Vitae (PDF)</span>

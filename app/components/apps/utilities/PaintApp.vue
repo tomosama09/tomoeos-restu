@@ -2,7 +2,7 @@
   <WindowFrame id="paint" title="Untitled - Paint" icon="/icons/paint.svg">
     <div class="flex flex-col h-full bg-[#f0f4f9] text-slate-800 select-none overflow-hidden font-sans">
       <!-- 1. Paint Ribbon Toolbar (Aero style) -->
-      <div class="shrink-0 bg-gradient-to-b from-[#fbfdff] via-[#eef4fa] to-[#d8e6f7] border-b border-[#a9c3e2] px-3 py-1 flex flex-wrap items-center gap-2.5 shadow-2xs select-none">
+      <div class="shrink-0 bg-gradient-to-b from-[#fbfdff] via-[#eef4fa] to-[#d8e6f7] border-b border-[#a9c3e2] px-2 sm:px-3 py-1 flex items-center gap-2 sm:gap-2.5 shadow-2xs select-none overflow-x-auto no-scrollbar">
         
         <!-- Section A: Clipboard & Actions -->
         <div class="flex flex-col items-center gap-0.5 border-r border-[#c2d7ed] pr-2">

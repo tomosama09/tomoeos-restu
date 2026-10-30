@@ -58,9 +58,9 @@
       </div>
     </div>
 
-    <!-- 3. PICTURES LIBRARY (POSTER WORK 4-COL GRID) -->
+    <!-- 3. PICTURES LIBRARY (POSTER WORK RESPONSIVE GRID) -->
     <div v-else-if="category === 'pictures'" class="space-y-3">
-      <div class="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-2.5">
         <div
           v-for="(pic, idx) in pictureList"
           :key="pic"
@@ -80,13 +80,13 @@
     <!-- Photo Lightbox Viewer Modal -->
     <div
       v-if="selectedPhotoIndex !== null"
-      class="fixed inset-0 z-[11000] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 select-none"
+      class="fixed inset-0 z-[11000] bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 select-none"
       @click="selectedPhotoIndex = null"
     >
-      <div class="relative max-w-xl max-h-[85vh] bg-slate-900 rounded-lg p-2 border border-white/20 shadow-2xl flex flex-col items-center" @click.stop>
+      <div class="relative max-w-xl max-h-[85vh] bg-slate-900 rounded-lg p-2 border border-white/20 shadow-2xl flex flex-col items-center w-full" @click.stop>
         <!-- Top bar -->
         <div class="w-full flex items-center justify-between pb-2 px-1 text-slate-300 text-xs">
-          <span class="font-bold">Photo Viewer - Selected Work (Poster {{ selectedPhotoIndex + 1 }} of {{ pictureList.length }})</span>
+          <span class="font-bold truncate pr-2">Poster {{ selectedPhotoIndex + 1 }} of {{ pictureList.length }}</span>
           <button type="button" class="text-white hover:text-red-400 font-bold px-2 py-0.5 rounded cursor-pointer" @click="selectedPhotoIndex = null">✕</button>
         </div>
 

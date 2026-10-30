@@ -37,15 +37,15 @@
         <!-- Breadcrumb Address Bar -->
         <div class="flex-1 h-6 bg-white border border-blue-300 rounded px-2 flex items-center gap-1.5 text-xs text-slate-700 shadow-inner overflow-hidden">
           <img src="/icons/folder-docs.webp" alt="" class="w-3.5 h-3.5 shrink-0 object-contain" />
-          <span class="text-slate-400">Documents</span>
-          <span class="text-slate-400">▶</span>
-          <span class="text-slate-600 font-medium">User</span>
-          <span class="text-slate-400">▶</span>
-          <span class="text-blue-950 font-bold capitalize">{{ currentNavLabel }}</span>
+          <span class="hidden sm:inline text-slate-400">Documents</span>
+          <span class="hidden sm:inline text-slate-400">▶</span>
+          <span class="hidden sm:inline text-slate-600 font-medium">User</span>
+          <span class="hidden sm:inline text-slate-400">▶</span>
+          <span class="text-blue-950 font-bold capitalize truncate">{{ currentNavLabel }}</span>
         </div>
 
-        <!-- Search Input -->
-        <div class="w-40 h-6 bg-white border border-slate-300 rounded px-2 flex items-center gap-1 text-xs text-slate-700 shadow-inner shrink-0">
+        <!-- Search Input (Desktop only) -->
+        <div class="hidden sm:flex w-40 h-6 bg-white border border-slate-300 rounded px-2 items-center gap-1 text-xs text-slate-700 shadow-inner shrink-0">
           <svg viewBox="0 0 20 20" class="w-3 h-3 fill-slate-400 shrink-0">
             <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
           </svg>
@@ -57,10 +57,37 @@
         </div>
       </div>
 
+      <!-- Mobile Horizontal Pill Navigation (< md) -->
+      <div class="flex md:hidden overflow-x-auto p-1.5 bg-[#eaf2fb] border-b border-blue-200/70 gap-1.5 no-scrollbar shrink-0">
+        <button
+          v-for="item in navFavorites"
+          :key="item.id"
+          type="button"
+          class="px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1.5 cursor-pointer shrink-0 transition-colors"
+          :class="currentNav === item.id ? 'bg-sky-500 text-white font-bold shadow-2xs' : 'bg-white/80 text-slate-700 hover:bg-white'"
+          @click="setNav(item.id)"
+        >
+          <img :src="item.icon" alt="" class="w-3.5 h-3.5 object-contain" />
+          <span>{{ item.label }}</span>
+        </button>
+        <span class="w-px h-4 bg-blue-200 my-auto shrink-0" />
+        <button
+          v-for="item in navLibraries"
+          :key="item.id"
+          type="button"
+          class="px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1.5 cursor-pointer shrink-0 transition-colors"
+          :class="currentNav === item.id ? 'bg-sky-500 text-white font-bold shadow-2xs' : 'bg-white/80 text-slate-700 hover:bg-white'"
+          @click="setNav(item.id)"
+        >
+          <img :src="item.icon" alt="" class="w-3.5 h-3.5 object-contain" />
+          <span>{{ item.label }}</span>
+        </button>
+      </div>
+
       <!-- Main Explorer Workspace: Sidebar + Pane Content -->
       <div class="flex-1 flex min-h-0 overflow-hidden bg-white">
         <!-- Left Sidebar Navigation -->
-        <div class="w-48 bg-gradient-to-b from-sky-50/60 to-blue-50/40 border-r border-blue-200/70 p-2 flex flex-col justify-between shrink-0 overflow-y-auto">
+        <div class="hidden md:flex w-48 bg-gradient-to-b from-sky-50/60 to-blue-50/40 border-r border-blue-200/70 p-2 flex-col justify-between shrink-0 overflow-y-auto">
           <div class="space-y-0.5">
             <div class="font-bold text-[10px] text-blue-950/70 uppercase tracking-wider px-2 py-1">Favorites</div>
 
@@ -166,6 +193,25 @@ import PaneMediaLibrary from '~/components/apps/explorer/PaneMediaLibrary.vue'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 type NavSection = 'about' | 'services' | 'experience' | 'contact' | 'videos' | 'documents' | 'pictures'
+
+interface NavItem {
+  id: NavSection
+  label: string
+  icon: string
+}
+
+const navFavorites: NavItem[] = [
+  { id: 'about', label: 'About Me', icon: '/icons/fci-businessman.svg' },
+  { id: 'services', label: 'What I Do', icon: '/icons/fci-clapperboard.svg' },
+  { id: 'experience', label: 'Work Experience', icon: '/icons/fci-library.svg' },
+  { id: 'contact', label: 'Contact', icon: '/icons/fci-contacts.svg' }
+]
+
+const navLibraries: NavItem[] = [
+  { id: 'videos', label: 'Videos', icon: '/icons/folder-videos.webp' },
+  { id: 'documents', label: 'Documents', icon: '/icons/folder-docs.webp' },
+  { id: 'pictures', label: 'Pictures', icon: '/icons/folder-pics.webp' }
+]
 
 const { playSound } = useAudioFeedback()
 const currentNav = useState<NavSection>('explorer-nav', () => 'about')

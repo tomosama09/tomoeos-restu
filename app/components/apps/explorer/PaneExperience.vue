@@ -9,12 +9,12 @@
       <!-- Role: USD Library -->
       <div class="p-3.5 rounded-lg bg-white border border-slate-200/90 shadow-2xs space-y-3">
         <!-- Header -->
-        <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-2.5 border-b border-slate-100">
           <div>
             <h3 class="font-bold text-blue-950 text-sm">Sanata Dharma University Library</h3>
             <div class="text-[11px] font-semibold text-blue-700">Social Media Coordinator & Content Strategy</div>
           </div>
-          <span class="text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+          <span class="text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 self-start sm:self-auto">
             2025 to 2026
           </span>
         </div>

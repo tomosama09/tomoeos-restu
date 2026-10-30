@@ -36,7 +36,10 @@
       <!-- 2. Main Stage Area: Centered Album Art & Vinyl Stage + Playlist -->
       <div class="flex-1 flex min-h-0 relative bg-gradient-to-b from-[#111e30] via-[#09111c] to-[#05080e] overflow-hidden">
         <!-- Center Stage: Vinyl & Metadata Showcase -->
-        <div class="flex-1 relative flex flex-col items-center justify-center p-6 text-center overflow-auto">
+        <div
+          class="flex-1 relative flex-col items-center justify-center p-4 sm:p-6 text-center overflow-auto"
+          :class="showPlaylist ? 'hidden md:flex' : 'flex'"
+        >
           <!-- Ambient Glow Background -->
           <div class="absolute w-72 h-72 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
@@ -44,7 +47,7 @@
           <div class="relative mb-5 flex items-center justify-center cursor-pointer group" @click="togglePlay">
             <!-- Vinyl Disc with Grooves -->
             <div
-              class="w-44 h-44 rounded-full border-4 border-slate-700 bg-gradient-to-tr from-neutral-900 via-stone-900 to-black shadow-2xl flex items-center justify-center relative transition-transform duration-700"
+              class="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-4 border-slate-700 bg-gradient-to-tr from-neutral-900 via-stone-900 to-black shadow-2xl flex items-center justify-center relative transition-transform duration-700"
               :class="isPlaying ? 'animate-[spin_4s_linear_infinite]' : 'group-hover:scale-102'"
             >
               <!-- Vinyl Concentric Grooves -->
@@ -53,13 +56,13 @@
               <div class="absolute inset-9 rounded-full border border-white/5 pointer-events-none" />
 
               <!-- Center Album Label -->
-              <div class="w-20 h-20 rounded-full border-2 border-white/30 bg-gradient-to-br from-blue-600 via-sky-600 to-indigo-900 flex flex-col items-center justify-center shadow-inner text-white">
-                <span class="text-xl">♫</span>
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/30 bg-gradient-to-br from-blue-600 via-sky-600 to-indigo-900 flex flex-col items-center justify-center shadow-inner text-white">
+                <span class="text-lg sm:text-xl">♫</span>
                 <span class="text-[8px] font-mono opacity-80 uppercase tracking-widest mt-0.5">PLAYER</span>
               </div>
 
               <!-- Center Spindle Hole -->
-              <div class="w-4 h-4 rounded-full bg-neutral-900 border border-slate-700 shadow-inner" />
+              <div class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-neutral-900 border border-slate-700 shadow-inner" />
             </div>
 
             <!-- Hover Play / Pause Overlay Hint -->
@@ -100,7 +103,7 @@
         <!-- Collapsible Playlist Side Pane -->
         <div
           v-if="showPlaylist"
-          class="w-64 bg-[#0d1624]/95 backdrop-blur-md border-l border-blue-900/40 flex flex-col shrink-0 text-xs shadow-2xl transition-all"
+          class="w-full md:w-64 bg-[#0d1624]/95 backdrop-blur-md border-l border-blue-900/40 flex flex-col shrink-0 text-xs shadow-2xl transition-all"
         >
           <div class="p-2.5 bg-[#142033] border-b border-blue-900/40 flex items-center justify-between text-slate-300 font-bold text-[11px] uppercase tracking-wider">
             <span>Audio Playlist</span>
@@ -152,9 +155,9 @@
       </div>
 
       <!-- 4. Aero Media Controls Bottom Bar -->
-      <div class="shrink-0 bg-gradient-to-b from-[#1b2738] via-[#101926] to-[#080d14] border-t border-white/10 px-4 py-2.5 flex items-center justify-between">
+      <div class="shrink-0 bg-gradient-to-b from-[#1b2738] via-[#101926] to-[#080d14] border-t border-white/10 px-2 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between">
         <!-- Repeat & Shuffle Controls (Left) -->
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1 sm:gap-1.5">
           <button
             type="button"
             class="w-7 h-7 rounded flex items-center justify-center border transition-all cursor-pointer text-xs"
@@ -176,7 +179,7 @@
         </div>
 
         <!-- Central Playback Controls (Center) -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           <!-- Previous Track -->
           <button
             type="button"
@@ -192,7 +195,7 @@
           <!-- Play / Pause (Aero Glass Orb) -->
           <button
             type="button"
-            class="w-12 h-12 rounded-full bg-gradient-to-b from-[#56a7f5] via-[#247adc] to-[#1258ab] hover:brightness-110 active:scale-95 border-2 border-white/80 flex items-center justify-center text-white cursor-pointer shadow-lg transition-transform"
+            class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-b from-[#56a7f5] via-[#247adc] to-[#1258ab] hover:brightness-110 active:scale-95 border-2 border-white/80 flex items-center justify-center text-white cursor-pointer shadow-lg transition-transform"
             :title="isPlaying ? 'Pause' : 'Play'"
             @click="togglePlay"
           >
@@ -232,7 +235,7 @@
         </div>
 
         <!-- Volume Controls (Right) -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             class="text-slate-300 hover:text-white cursor-pointer text-xs"
@@ -249,7 +252,7 @@
             max="1"
             step="0.05"
             v-model.number="volume"
-            class="w-20 accent-blue-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
+            class="hidden sm:inline-block w-16 sm:w-20 accent-blue-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
             @input="onVolumeChange"
           />
         </div>

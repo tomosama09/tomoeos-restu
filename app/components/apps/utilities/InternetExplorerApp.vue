@@ -31,7 +31,7 @@
           <!-- IE Address Bar -->
           <div class="flex-1 h-7 bg-white rounded border border-[#7f9db9] hover:border-[#3c7fb1] px-2 flex items-center gap-1.5 shadow-inner transition-colors">
             <!-- Lock / Security Badge -->
-            <div class="flex items-center gap-1 bg-[#e7f4e4] border border-[#b8dfb3] text-[#2b7424] text-[10px] font-semibold px-1.5 py-0.5 rounded-xs">
+            <div class="hidden sm:flex items-center gap-1 bg-[#e7f4e4] border border-[#b8dfb3] text-[#2b7424] text-[10px] font-semibold px-1.5 py-0.5 rounded-xs shrink-0">
               <svg viewBox="0 0 20 20" class="w-2.5 h-2.5 fill-current">
                 <path d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 4a2 2 0 114 0v2H8V6z"/>
               </svg>
@@ -43,7 +43,7 @@
               :value="currentUrl"
               readonly
               type="text"
-              class="flex-1 bg-transparent text-xs text-slate-800 font-mono outline-none select-text cursor-text truncate"
+              class="flex-1 bg-transparent text-xs text-slate-800 font-mono outline-none select-text cursor-text truncate min-w-0"
             />
 
             <!-- Refresh & Stop & Go Controls -->
@@ -61,8 +61,8 @@
             </div>
           </div>
 
-          <!-- IE Command Icons -->
-          <div class="flex items-center gap-1 shrink-0 text-[#294c74]">
+          <!-- IE Command Icons (Desktop only) -->
+          <div class="hidden sm:flex items-center gap-1 shrink-0 text-[#294c74]">
             <button
               type="button"
               class="w-7 h-7 flex items-center justify-center rounded hover:bg-white/50 cursor-pointer"
@@ -120,8 +120,8 @@
             </div>
           </div>
 
-          <!-- YouTube Search Bar -->
-          <div class="flex items-center max-w-md w-full mx-4">
+          <!-- YouTube Search Bar (Desktop only) -->
+          <div class="hidden sm:flex items-center max-w-md w-full mx-4">
             <div class="flex-1 h-9 bg-[#121212] border border-[#303030] rounded-l-full px-4 flex items-center">
               <input
                 type="text"

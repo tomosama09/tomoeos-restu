@@ -27,7 +27,7 @@
       <!-- Main Desktop Workspace Area -->
       <div class="flex-1 relative overflow-hidden">
         <!-- Desktop Icons Column Grid (Exact 4 icons requested: Documents, Internet Explorer, Resume, Recycle Bin) -->
-        <div class="absolute top-6 left-6 flex flex-col gap-4 z-10">
+        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-3 sm:gap-4 z-10">
           <DesktopIcon
             label="Documents"
             icon="/icons/folder-docs.webp"
@@ -51,11 +51,11 @@
           />
         </div>
 
-        <!-- Desktop Utilities / Widgets (Clock & Weather Gadgets) -->
-        <DesktopGadgets />
+        <!-- Desktop Utilities / Widgets (Clock & Weather Gadgets) - Desktop Only -->
+        <DesktopGadgets class="hidden md:block" />
 
-        <!-- Desktop Sticky Note -->
-        <StickyNote />
+        <!-- Desktop Sticky Note - Desktop Only -->
+        <StickyNote class="hidden md:block" />
 
         <!-- App Windows Layer -->
         <ExplorerWindow />

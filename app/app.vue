@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen overflow-hidden select-none bg-[#0d4b88] text-slate-800 font-sans relative">
+  <div class="h-screen h-[100dvh] w-screen overflow-hidden select-none bg-[#0d4b88] text-slate-800 font-sans relative">
     <ClientOnly>
       <DesktopShell />
     </ClientOnly>

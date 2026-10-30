@@ -1,12 +1,12 @@
 <template>
   <div
-    class="aero-start-menu open fixed bottom-10 left-1 w-[390px] h-[480px] rounded-t-lg bg-gradient-to-b from-sky-950/90 via-blue-950/95 to-slate-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-[10000] overflow-hidden select-none"
+    class="aero-start-menu open fixed bottom-10 left-1 w-[calc(100vw-8px)] sm:w-[390px] max-w-[390px] h-[480px] max-h-[calc(100dvh-50px)] rounded-t-lg bg-gradient-to-b from-sky-950/90 via-blue-950/95 to-slate-950/95 border border-white/60 shadow-2xl backdrop-blur-2xl flex flex-col z-[10000] overflow-hidden select-none"
     @click.stop
   >
     <!-- Top 2-Pane Container -->
     <div class="flex-1 flex min-h-0">
       <!-- Left Pane (White Programs List) -->
-      <div class="w-[225px] bg-white/95 p-2 flex flex-col justify-between border-r border-blue-200/60">
+      <div class="w-[58%] sm:w-[225px] bg-white/95 p-2 flex flex-col justify-between border-r border-blue-200/60">
         <!-- 1. Pinned Apps (Only Games, Paint, Media Player) -->
         <div v-if="!isAllPrograms" class="space-y-1 overflow-y-auto pr-1 flex-1">
           <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 py-0.5">Quick Launch</div>
@@ -63,17 +63,17 @@
 
       <!-- Right Pane (Blue Quick Access Shortcuts: Documents, Pictures, and CV only) -->
       <div
-        class="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#184279]/95 via-[#113462]/95 to-[#0a2142]/98 border-l border-white/20 text-white select-none"
+        class="flex-1 p-2 sm:p-3 flex flex-col justify-between bg-gradient-to-b from-[#184279]/95 via-[#113462]/95 to-[#0a2142]/98 border-l border-white/20 text-white select-none min-w-0"
         style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;"
       >
         <!-- User Avatar Header -->
-        <div class="flex items-center gap-2.5 pb-2.5 border-b border-white/20">
-          <div class="w-10 h-10 rounded-md border border-white/60 overflow-hidden bg-white/20 p-0.5 shadow-sm shrink-0">
+        <div class="flex items-center gap-2 pb-2.5 border-b border-white/20">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-md border border-white/60 overflow-hidden bg-white/20 p-0.5 shadow-sm shrink-0">
             <img src="/icons/logon-avatar.svg" alt="User Avatar" class="w-full h-full object-cover rounded-sm" />
           </div>
           <div class="min-w-0">
-            <div class="font-bold text-white text-[13px] tracking-wide truncate">User</div>
-            <div class="text-[11px] text-sky-200">Administrator</div>
+            <div class="font-bold text-white text-xs sm:text-[13px] tracking-wide truncate">User</div>
+            <div class="text-[10px] sm:text-[11px] text-sky-200 truncate">Administrator</div>
           </div>
         </div>
 
@@ -82,21 +82,21 @@
           <!-- Documents -->
           <button
             type="button"
-            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            class="w-full text-left px-2 sm:px-2.5 py-1.5 sm:py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[11px] sm:text-[12px] transition-all cursor-pointer flex items-center gap-2 sm:gap-2.5 truncate"
             @click="openExplorerNav('documents')"
           >
-            <img src="/icons/folder-docs.webp" alt="" class="w-4 h-4 object-contain" />
-            <span>Documents</span>
+            <img src="/icons/folder-docs.webp" alt="" class="w-4 h-4 object-contain shrink-0" />
+            <span class="truncate">Documents</span>
           </button>
 
           <!-- Pictures -->
           <button
             type="button"
-            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            class="w-full text-left px-2 sm:px-2.5 py-1.5 sm:py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[11px] sm:text-[12px] transition-all cursor-pointer flex items-center gap-2 sm:gap-2.5 truncate"
             @click="openExplorerNav('pictures')"
           >
-            <img src="/icons/folder-pics.webp" alt="" class="w-4 h-4 object-contain" />
-            <span>Pictures</span>
+            <img src="/icons/folder-pics.webp" alt="" class="w-4 h-4 object-contain shrink-0" />
+            <span class="truncate">Pictures</span>
           </button>
 
           <!-- Curriculum Vitae (CV) -->
@@ -104,10 +104,10 @@
             href="/Restu_Utomo_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full text-left px-2.5 py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-sky-200 hover:text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            class="w-full text-left px-2 sm:px-2.5 py-1.5 sm:py-2 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-sky-200 hover:text-white font-medium text-[11px] sm:text-[12px] transition-all cursor-pointer flex items-center gap-2 sm:gap-2.5 truncate"
           >
-            <img src="/icons/pdf.svg" alt="" class="w-4 h-4 object-contain" />
-            <span>Curriculum Vitae</span>
+            <img src="/icons/pdf.svg" alt="" class="w-4 h-4 object-contain shrink-0" />
+            <span class="truncate">Curriculum Vitae</span>
           </a>
         </div>
 

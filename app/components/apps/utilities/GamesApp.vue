@@ -26,7 +26,7 @@
         </div>
 
         <!-- Quick Switcher Dropdown / Tabs -->
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1 overflow-x-auto no-scrollbar shrink-0">
           <button
             v-for="game in gamesList"
             :key="game.id"

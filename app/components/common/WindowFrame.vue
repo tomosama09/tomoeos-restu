@@ -7,7 +7,7 @@
     :class="[
       isActive ? 'active-window shadow-2xl' : 'opacity-95 shadow-md',
       win.isMinimized ? 'hidden' : 'flex',
-      win.isMaximized ? '!inset-0 !w-full !h-[calc(100vh-40px)] !rounded-none !top-0 !left-0' : ''
+      (isMobile || win.isMaximized) ? '!inset-0 !w-full !h-[calc(100dvh-40px)] !rounded-none !top-0 !left-0 border-x-0 border-t-0' : ''
     ]"
     :style="windowStyle"
     @pointerdown="onWindowPointerDown"
@@ -30,7 +30,7 @@
         <!-- Minimize -->
         <button
           type="button"
-          class="aero-cap-btn traffic-minimize w-7 h-5 flex items-center justify-center rounded-sm hover:bg-white/40 active:bg-white/60 text-slate-700 transition-colors"
+          class="aero-cap-btn traffic-minimize w-8 sm:w-7 h-6 sm:h-5 flex items-center justify-center rounded-sm hover:bg-white/40 active:bg-white/60 text-slate-700 transition-colors cursor-pointer"
           title="Minimize"
           @click.stop="handleMinimize"
         >
@@ -39,10 +39,11 @@
           </svg>
         </button>
 
-        <!-- Maximize / Restore -->
+        <!-- Maximize / Restore (Hidden on mobile) -->
         <button
+          v-if="!isMobile"
           type="button"
-          class="aero-cap-btn traffic-fullscreen w-7 h-5 flex items-center justify-center rounded-sm hover:bg-white/40 active:bg-white/60 text-slate-700 transition-colors"
+          class="aero-cap-btn traffic-fullscreen w-7 h-5 flex items-center justify-center rounded-sm hover:bg-white/40 active:bg-white/60 text-slate-700 transition-colors cursor-pointer"
           :title="win.isMaximized ? 'Restore Down' : 'Maximize'"
           @click.stop="toggleMaximize"
         >
@@ -54,11 +55,11 @@
         <!-- Close -->
         <button
           type="button"
-          class="aero-cap-btn aero-cap-close traffic-close w-10 h-5 flex items-center justify-center rounded-sm hover:bg-red-500 hover:text-white active:bg-red-600 text-slate-700 transition-colors"
+          class="aero-cap-btn aero-cap-close traffic-close w-10 h-6 sm:h-5 flex items-center justify-center rounded-sm hover:bg-red-500 hover:text-white active:bg-red-600 text-slate-700 transition-colors cursor-pointer"
           title="Close"
           @click.stop="handleClose"
         >
-          <svg viewBox="0 0 10 10" width="8" height="8">
+          <svg viewBox="0 0 10 10" width="9" height="9">
             <line x1="2" y1="2" x2="8" y2="8" stroke="currentColor" stroke-width="1.6" />
             <line x1="8" y1="2" x2="2" y2="8" stroke="currentColor" stroke-width="1.6" />
           </svg>
@@ -71,8 +72,8 @@
       <slot />
     </div>
 
-    <!-- Resize Grip Handles (only when not maximized) -->
-    <template v-if="!win.isMaximized">
+    <!-- Resize Grip Handles (only when not maximized and desktop) -->
+    <template v-if="!isMobile && !win.isMaximized">
       <div
         class="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize z-20"
         @pointerdown.stop="onResizeCornerPointerDown"
@@ -90,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useWindowManager } from '~/composables/useWindowManager'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
@@ -106,10 +107,36 @@ const { playSound } = useAudioFeedback()
 const win = computed(() => wm.windows.value[props.id])
 const isActive = computed(() => wm.activeWindowId.value === props.id)
 
+const isMobile = ref(false)
+
+const updateIsMobile = () => {
+  if (typeof window !== 'undefined') {
+    isMobile.value = window.innerWidth < 768
+  }
+}
+
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('resize', updateIsMobile)
+  }
+})
+
 const windowStyle = computed(() => {
   if (!win.value) return {}
-  if (win.value.isMaximized) {
-    return { zIndex: win.value.zIndex }
+  if (isMobile.value || win.value.isMaximized) {
+    return {
+      top: '0px',
+      left: '0px',
+      width: '100%',
+      height: 'calc(100dvh - 40px)',
+      borderRadius: '0px',
+      zIndex: win.value.zIndex
+    }
   }
   return {
     top: `${win.value.y}px`,
@@ -130,6 +157,7 @@ const handleMinimize = () => {
 }
 
 const toggleMaximize = () => {
+  if (isMobile.value) return
   playSound('click')
   wm.maximizeWindow(props.id)
 }
@@ -147,7 +175,7 @@ let initialWinX = 0
 let initialWinY = 0
 
 const onTitlebarPointerDown = (e: PointerEvent) => {
-  if (!win.value || win.value.isMaximized) return
+  if (!win.value || win.value.isMaximized || isMobile.value) return
   isDragging = true
   startX = e.clientX
   startY = e.clientY
@@ -184,7 +212,7 @@ let initialH = 0
 let resizeMode: 'corner' | 'right' | 'bottom' = 'corner'
 
 const startResize = (e: PointerEvent, mode: 'corner' | 'right' | 'bottom') => {
-  if (!win.value || win.value.isMaximized) return
+  if (!win.value || win.value.isMaximized || isMobile.value) return
   isResizing = true
   resizeMode = mode
   resizeStartX = e.clientX

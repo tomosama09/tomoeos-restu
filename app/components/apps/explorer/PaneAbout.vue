@@ -28,20 +28,20 @@
       </div>
 
       <div class="bg-white/80 rounded border border-slate-200/90 p-3 shadow-2xs divide-y divide-slate-100 text-xs">
-        <div class="flex py-1.5 items-baseline">
-          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Degree:</span>
+        <div class="flex flex-col sm:flex-row py-1.5 sm:items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px] mb-0.5 sm:mb-0">Degree:</span>
           <span class="text-blue-950 font-semibold">B.A. in English Language Education, Sanata Dharma University (2026)</span>
         </div>
-        <div class="flex py-1.5 items-baseline">
-          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Undergraduate Thesis:</span>
+        <div class="flex flex-col sm:flex-row py-1.5 sm:items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px] mb-0.5 sm:mb-0">Undergraduate Thesis:</span>
           <span class="text-slate-800 font-normal">Developing an English Learning Module (ADDIE R&D Framework)</span>
         </div>
-        <div class="flex py-1.5 items-baseline">
-          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Production Software:</span>
+        <div class="flex flex-col sm:flex-row py-1.5 sm:items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px] mb-0.5 sm:mb-0">Production Software:</span>
           <span class="text-slate-800 font-normal">Adobe Photoshop, Canva, Premiere Pro, DaVinci Resolve Studio, Lightroom, OBS Studio</span>
         </div>
-        <div class="flex py-1.5 items-baseline">
-          <span class="w-36 shrink-0 text-slate-500 text-[11px]">Hardware Environment:</span>
+        <div class="flex flex-col sm:flex-row py-1.5 sm:items-baseline">
+          <span class="w-36 shrink-0 text-slate-500 text-[11px] mb-0.5 sm:mb-0">Hardware Environment:</span>
           <span class="text-slate-800 font-normal">Mirrorless Camera Systems, Wireless Field Audio</span>
         </div>
       </div>
