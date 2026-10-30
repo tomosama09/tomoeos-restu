@@ -5,7 +5,7 @@
       <div>
         <h2 class="text-base font-bold text-blue-950 tracking-tight capitalize">{{ category }} Library</h2>
         <p class="text-xs text-slate-600 mt-0.5">
-          <template v-if="category === 'videos'">Showreel tracks. Click to open directly in YouTube.</template>
+          <template v-if="category === 'videos'">Showreel tracks. Click to watch in Internet Explorer.</template>
           <template v-else-if="category === 'pictures'">Selected Work: Promotional and literacy poster designs for the Sanata Dharma University Library.</template>
           <template v-else>Official curriculum vitae document.</template>
         </p>
@@ -28,9 +28,9 @@
           <div class="text-xs font-bold text-blue-950 truncate">{{ vid.title }}</div>
           <div class="text-[11px] text-slate-500">{{ vid.sub }}</div>
         </div>
-        <span class="text-xs text-red-600 font-bold px-2 py-0.5 rounded bg-red-50 border border-red-200 hover:bg-red-100 shrink-0 flex items-center gap-1">
-          <span>YouTube</span>
-          <span>↗</span>
+        <span class="text-xs text-blue-800 font-bold px-2 py-0.5 rounded bg-blue-50 border border-blue-200 hover:bg-blue-100 shrink-0 flex items-center gap-1.5">
+          <img src="/icons/internet-explorer.svg" alt="" class="w-3.5 h-3.5 object-contain" />
+          <span>Watch</span>
         </span>
       </div>
     </div>
@@ -122,6 +122,7 @@ const props = defineProps<{
 const wm = useWindowManager()
 const { playSound } = useAudioFeedback()
 const activeVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
+const activeIeVideoId = useState<string>('ie-video-id', () => '1AV-MsdP0Zo')
 
 const selectedPhotoIndex = ref<number | null>(null)
 
@@ -147,7 +148,8 @@ const itemCount = computed(() => {
 
 const playVideo = (id: string) => {
   playSound('click')
-  window.open(`https://www.youtube.com/watch?v=${id}`, '_blank')
+  activeIeVideoId.value = id
+  wm.openWindow('ie')
 }
 
 const openCV = () => {

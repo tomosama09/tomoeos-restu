@@ -19,9 +19,9 @@ export interface WindowState {
 const DEFAULT_WINDOWS: Record<string, WindowState> = {
   explorer: {
     id: 'explorer',
-    title: 'Explorer',
-    icon: '/icons/computer.webp',
-    isOpen: true,
+    title: 'Documents',
+    icon: '/icons/folder-docs.webp',
+    isOpen: false,
     isMinimized: false,
     isMaximized: false,
     zIndex: 10,
@@ -31,6 +31,21 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
     h: 620,
     initialW: 780,
     initialH: 620
+  },
+  ie: {
+    id: 'ie',
+    title: 'Internet Explorer',
+    icon: '/icons/internet-explorer.svg',
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 10,
+    x: 140,
+    y: 50,
+    w: 860,
+    h: 580,
+    initialW: 860,
+    initialH: 580
   },
   player: {
     id: 'player',

@@ -56,23 +56,26 @@
       </div>
 
       <!-- Right Pane (Blue Quick Access Shortcuts) -->
-      <div class="flex-1 p-3 flex flex-col justify-between text-white text-xs font-semibold">
+      <div
+        class="flex-1 p-3 flex flex-col justify-between bg-gradient-to-b from-[#184279]/95 via-[#113462]/95 to-[#0a2142]/98 border-l border-white/20 text-white select-none"
+        style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;"
+      >
         <!-- User Avatar Header (No Personal Photo) -->
         <div class="flex items-center gap-2.5 pb-2.5 border-b border-white/20">
           <div class="w-10 h-10 rounded-md border border-white/60 overflow-hidden bg-white/20 p-0.5 shadow-sm shrink-0">
             <img src="/icons/logon-avatar.svg" alt="User Avatar" class="w-full h-full object-cover rounded-sm" />
           </div>
           <div class="min-w-0">
-            <div class="font-bold text-white text-[13px] drop-shadow-sm truncate">Restu Utomo</div>
-            <div class="text-[10px] text-sky-200">Administrator</div>
+            <div class="font-bold text-white text-[13px] tracking-wide truncate">User</div>
+            <div class="text-[11px] text-sky-200">Administrator</div>
           </div>
         </div>
 
-        <!-- Shortcuts List (High Contrast White Text) -->
-        <div class="space-y-1.5 py-2">
+        <!-- Shortcuts List (High Contrast Crisp White Text) -->
+        <div class="space-y-1 py-1.5">
           <button
             type="button"
-            class="w-full text-left px-2 py-1 rounded hover:bg-white/20 text-white font-semibold transition-colors cursor-pointer drop-shadow-sm flex items-center gap-2"
+            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="openExplorerNav('documents')"
           >
             <img src="/icons/folder-docs.webp" alt="" class="w-4 h-4 object-contain" />
@@ -80,7 +83,7 @@
           </button>
           <button
             type="button"
-            class="w-full text-left px-2 py-1 rounded hover:bg-white/20 text-white font-semibold transition-colors cursor-pointer drop-shadow-sm flex items-center gap-2"
+            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="openExplorerNav('pictures')"
           >
             <img src="/icons/folder-pics.webp" alt="" class="w-4 h-4 object-contain" />
@@ -88,7 +91,15 @@
           </button>
           <button
             type="button"
-            class="w-full text-left px-2 py-1 rounded hover:bg-white/20 text-white font-semibold transition-colors cursor-pointer drop-shadow-sm flex items-center gap-2"
+            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
+            @click="launchApp('ie')"
+          >
+            <img src="/icons/internet-explorer.svg" alt="" class="w-4 h-4 object-contain" />
+            <span>Internet Explorer</span>
+          </button>
+          <button
+            type="button"
+            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="launchApp('player')"
           >
             <img src="/icons/folder-videos.webp" alt="" class="w-4 h-4 object-contain" />
@@ -96,7 +107,7 @@
           </button>
           <button
             type="button"
-            class="w-full text-left px-2 py-1 rounded hover:bg-white/20 text-white font-semibold transition-colors cursor-pointer drop-shadow-sm flex items-center gap-2"
+            class="w-full text-left px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
             @click="openExplorerNav('about')"
           >
             <img src="/icons/computer.webp" alt="" class="w-4 h-4 object-contain" />
@@ -105,7 +116,7 @@
           <a
             href="/Restu_Utomo_CV.pdf"
             download="Restu_Utomo_CV.pdf"
-            class="block px-2 py-1 rounded hover:bg-white/20 text-sky-200 hover:text-white font-semibold transition-colors cursor-pointer drop-shadow-sm flex items-center gap-2"
+            class="block px-2 py-1.5 rounded hover:bg-white/15 hover:border-white/25 border border-transparent text-sky-200 hover:text-white font-medium text-[12px] transition-all cursor-pointer flex items-center gap-2.5"
           >
             <img src="/icons/pdf.svg" alt="" class="w-4 h-4 object-contain" />
             <span>Curriculum Vitae</span>
@@ -160,7 +171,8 @@ const searchQuery = ref('')
 const isAllPrograms = ref(false)
 
 const apps = [
-  { id: 'explorer', title: 'Explorer', desc: 'File management & portfolio', icon: '/icons/computer.webp' },
+  { id: 'explorer', title: 'Documents', desc: 'Portfolio documents & archives', icon: '/icons/folder-docs.webp' },
+  { id: 'ie', title: 'Internet Explorer', desc: 'Browse web & watch YouTube', icon: '/icons/internet-explorer.svg' },
   { id: 'player', title: 'Media Player', desc: 'Video showreel player', icon: '/icons/folder-videos.webp' },
   { id: 'notepad', title: 'Notepad', desc: 'Welcome.txt memo', icon: '/icons/welcome-note.svg' },
   { id: 'calculator', title: 'Calculator', desc: 'Standard desktop calculator', icon: '/icons/calc.webp' },
@@ -169,7 +181,8 @@ const apps = [
 ]
 
 const allProgramList = [
-  { id: 'explorer', title: 'Explorer', icon: '/icons/computer.webp' },
+  { id: 'explorer', title: 'Documents', icon: '/icons/folder-docs.webp' },
+  { id: 'ie', title: 'Internet Explorer', icon: '/icons/internet-explorer.svg' },
   { id: 'player', title: 'Media Player', icon: '/icons/folder-videos.webp' },
   { id: 'notepad', title: 'Notepad', icon: '/icons/welcome-note.svg' },
   { id: 'calculator', title: 'Calculator', icon: '/icons/calc.webp' },

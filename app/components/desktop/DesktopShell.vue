@@ -29,9 +29,14 @@
         <!-- Desktop Icons Column Grid (Exact 42px icons in 64px columns) -->
         <div class="absolute top-6 left-6 flex flex-col gap-4 z-10">
           <DesktopIcon
-            label="Explorer"
-            icon="/icons/computer.webp"
+            label="Documents"
+            icon="/icons/folder-docs.webp"
             target-id="explorer"
+          />
+          <DesktopIcon
+            label="Internet Explorer"
+            icon="/icons/internet-explorer.svg"
+            target-id="ie"
           />
           <DesktopIcon
             label="Media Player"
@@ -74,6 +79,7 @@
 
         <!-- App Windows Layer -->
         <ExplorerWindow />
+        <InternetExplorerApp />
         <TomoePlayer />
         <NotepadApp />
         <CalculatorApp />
@@ -104,6 +110,7 @@ import StickyNote from '~/components/desktop/StickyNote.vue'
 import AeroTaskbar from '~/components/desktop/AeroTaskbar.vue'
 import StartMenu from '~/components/desktop/StartMenu.vue'
 import ExplorerWindow from '~/components/apps/explorer/ExplorerWindow.vue'
+import InternetExplorerApp from '~/components/apps/utilities/InternetExplorerApp.vue'
 import TomoePlayer from '~/components/apps/player/TomoePlayer.vue'
 import NotepadApp from '~/components/apps/utilities/NotepadApp.vue'
 import CalculatorApp from '~/components/apps/utilities/CalculatorApp.vue'
@@ -156,7 +163,7 @@ const handleLogin = () => {
   playStartupChime()
   osPhase.value = 'desktop'
   setTimeout(() => {
-    wm.openWindow('explorer')
+    wm.openWindow('notepad')
   }, 250)
 }
 

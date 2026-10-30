@@ -9,7 +9,7 @@
           alt="User Avatar"
         />
         <div class="aero-logon-user-copy">
-          <div class="aero-logon-name">Restu Utomo</div>
+          <div class="aero-logon-name">User</div>
           <div class="aero-logon-tagline">Welcome</div>
         </div>
       </div>

@@ -31,31 +31,42 @@ import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 const { playSound } = useAudioFeedback()
 
-const DEFAULT_TEXT = `Welcome to TomoeOS.
+const DEFAULT_TEXT = `Welcome to TomoeOS [Version 7.1.7601]
+Personal Portfolio of Restu Utomo
 
-Restu Utomo
-Graphic Designer, Videographer & Photographer
-Sanata Dharma University (2026)
+Profile:
+- Role: Graphic Designer, Videographer & Photographer
+- Education: Sanata Dharma University (Graduated 2026)
+- Disciplines: Brand Identity, Motion Graphics, Video Production & Documentary Photography
 
-Key Milestones:
-- Over 500,000 organic views on institutional social channels (2025 to 2026)
-- 26,000+ unique accounts reached with 53.8% non-follower discovery
-- Technical broadcast desk & documentation for LLTC 2025
+Verified Highlights:
+- Generated over 500,000 organic video views across institutional channels (2025 - 2026)
+- Reached 26,000+ unique accounts with 53.8% non-follower discovery rate
+- Directed visual media and event documentation for campus conferences and exhibitions
 
-Feel free to browse Restu Explorer or launch Tomoe Player for showreels.`
+System Guide:
+- Documents: Browse project galleries, case studies, and career history
+- Internet Explorer: Watch video showreels on integrated YouTube web interface
+- Media Player: Dedicated video stream player
+- Curriculum Vitae: Download official PDF resume via desktop or Start Menu
 
+Contact & Inquiries:
+- Email: rstt.tomo@gmail.com
+- Location: Yogyakarta, Indonesia`
+
+const STORAGE_KEY = 'tomoeos-welcome-txt-v3'
 const content = ref(DEFAULT_TEXT)
 
 onMounted(() => {
   if (typeof localStorage !== 'undefined') {
-    const saved = localStorage.getItem('tomoeos-welcome-txt')
+    const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) content.value = saved
   }
 })
 
 const autoSave = () => {
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('tomoeos-welcome-txt', content.value)
+    localStorage.setItem(STORAGE_KEY, content.value)
   }
 }
 

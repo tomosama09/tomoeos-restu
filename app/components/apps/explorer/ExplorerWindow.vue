@@ -1,5 +1,5 @@
 <template>
-  <WindowFrame id="explorer" title="Explorer" icon="/icons/computer.webp">
+  <WindowFrame id="explorer" title="Documents" icon="/icons/folder-docs.webp">
     <div class="flex flex-col h-full overflow-hidden select-none">
       <!-- Windows 7 Explorer Menubar -->
       <div class="explorer-menubar shrink-0 bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300/80 px-2 py-0.5 flex items-center gap-3 text-xs text-slate-700">
@@ -36,10 +36,10 @@
 
         <!-- Breadcrumb Address Bar -->
         <div class="flex-1 h-6 bg-white border border-blue-300 rounded px-2 flex items-center gap-1.5 text-xs text-slate-700 shadow-inner overflow-hidden">
-          <img src="/icons/computer.webp" alt="" class="w-3.5 h-3.5 shrink-0 object-contain" />
-          <span class="text-slate-400">Computer</span>
+          <img src="/icons/folder-docs.webp" alt="" class="w-3.5 h-3.5 shrink-0 object-contain" />
+          <span class="text-slate-400">Documents</span>
           <span class="text-slate-400">▶</span>
-          <span class="text-slate-600 font-medium">Restu Utomo</span>
+          <span class="text-slate-600 font-medium">User</span>
           <span class="text-slate-400">▶</span>
           <span class="text-blue-950 font-bold capitalize">{{ currentNavLabel }}</span>
         </div>
