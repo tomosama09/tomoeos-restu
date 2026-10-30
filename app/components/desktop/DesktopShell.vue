@@ -1,7 +1,7 @@
 <template>
   <div class="aero-desktop-wallpaper absolute inset-0 overflow-hidden flex flex-col select-none">
     <!-- Phase 1: BIOS Screen -->
-    <AeroBiosScreen v-if="osPhase === 'bios'" />
+    <AeroBiosScreen v-if="osPhase === 'bios'" @skip="skipBios" />
 
     <!-- Phase 2: Starting TomoeOS Boot Screen -->
     <AeroBootScreen v-else-if="osPhase === 'boot'" :progress="bootProgress" />
@@ -142,6 +142,36 @@ const bootProgress = ref(0)
 const isStartOpen = ref(false)
 
 let bootTimer: ReturnType<typeof setInterval> | null = null
+let biosTimer: ReturnType<typeof setTimeout> | null = null
+
+const proceedToBoot = () => {
+  if (biosTimer) {
+    clearTimeout(biosTimer)
+    biosTimer = null
+  }
+  if (osPhase.value !== 'bios') return
+  osPhase.value = 'boot'
+  const start = Date.now()
+  const duration = 1200
+
+  bootTimer = setInterval(() => {
+    const elapsed = Date.now() - start
+    const frac = Math.min(1, elapsed / duration)
+    bootProgress.value = Math.round(frac * 100)
+
+    if (frac >= 1) {
+      if (bootTimer) clearInterval(bootTimer)
+      bootTimer = null
+      setTimeout(() => {
+        osPhase.value = 'logon'
+      }, 150)
+    }
+  }, 30)
+}
+
+const skipBios = () => {
+  proceedToBoot()
+}
 
 const startBootSequence = () => {
   osPhase.value = 'bios'
@@ -150,26 +180,10 @@ const startBootSequence = () => {
     document.body.classList.add('boot-phase')
   }
 
-  // BIOS screen for 1.1s
-  setTimeout(() => {
-    osPhase.value = 'boot'
-    const start = Date.now()
-    const duration = 1200
-
-    bootTimer = setInterval(() => {
-      const elapsed = Date.now() - start
-      const frac = Math.min(1, elapsed / duration)
-      bootProgress.value = Math.round(frac * 100)
-
-      if (frac >= 1) {
-        if (bootTimer) clearInterval(bootTimer)
-        bootTimer = null
-        setTimeout(() => {
-          osPhase.value = 'logon'
-        }, 150)
-      }
-    }, 30)
-  }, 1100)
+  // BIOS screen for 1.8s (or click to skip)
+  biosTimer = setTimeout(() => {
+    proceedToBoot()
+  }, 1800)
 }
 
 const handleLogin = () => {
@@ -209,6 +223,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (biosTimer) clearTimeout(biosTimer)
   if (bootTimer) clearInterval(bootTimer)
   if (typeof window !== 'undefined') {
     window.removeEventListener('click', onGlobalClick)

@@ -31,30 +31,27 @@ import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 const { playSound } = useAudioFeedback()
 
-const DEFAULT_TEXT = `Welcome to TomoeOS [Version 7.1.7601]
-Personal Portfolio of Restu Utomo
+const DEFAULT_TEXT = `Hello!
 
-Profile:
-- Role: Graphic Designer, Videographer & Photographer
-- Education: Sanata Dharma University (Graduated 2026)
-- Disciplines: Brand Identity, Motion Graphics, Video Production & Documentary Photography
+Welcome to my digital workspace. I am Restu Utomo, a graphic designer, videographer, and photographer based in Yogyakarta, and a 2026 graduate of Sanata Dharma University.
 
-Verified Highlights:
-- Generated over 500,000 organic video views across institutional channels (2025 - 2026)
-- Reached 26,000+ unique accounts with 53.8% non-follower discovery rate
-- Directed visual media and event documentation for campus conferences and exhibitions
+I built this portfolio operating system inspired by the tactile, luminous aesthetics of late-2000s desktop environments. For me, visual design is about giving ideas clarity, structure, and emotional resonance.
 
-System Guide:
-- Documents: Browse project galleries, case studies, and career history
-- Internet Explorer: Watch video showreels on integrated YouTube web interface
-- Media Player: Dedicated video stream player
-- Curriculum Vitae: Download official PDF resume via desktop or Start Menu
+Over the past two years, my work has focused on institutional branding, poster design systems, and video documentation. This includes directing trailers and aftermovies that reached over 500,000 organic views and connected with 26,000+ unique accounts (with a 53.8% non-follower discovery rate), as well as developing visual identity systems for campus exhibitions.
 
-Contact & Inquiries:
-- Email: rstt.tomo@gmail.com
-- Location: Yogyakarta, Indonesia`
+Here is a quick guide to explore my work:
+- Open "Documents" to view my complete case studies, poster series, and career background.
+- Launch "Internet Explorer" or "Media Player" to watch my video showreels directly on YouTube.
+- Try "Paint" if you want to sketch an idea on the canvas.
+- Check "Command Prompt" if you prefer keyboard navigation.
+- Download my official resume from the desktop or Start Menu.
 
-const STORAGE_KEY = 'tomoeos-welcome-txt-v3'
+If you are looking for a dedicated collaborator on creative direction, video documentation, or brand identity projects, my inbox is always open at rstt.tomo@gmail.com.
+
+Warm regards,
+Restu Utomo`
+
+const STORAGE_KEY = 'tomoeos-welcome-txt-v4'
 const content = ref(DEFAULT_TEXT)
 
 onMounted(() => {
