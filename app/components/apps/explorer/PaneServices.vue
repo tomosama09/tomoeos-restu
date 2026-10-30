@@ -13,7 +13,7 @@
         <div class="flex-1">
           <h3 class="font-bold text-blue-950 text-xs">Graphic Design</h3>
           <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">
-            Creating posters, banners, and digital assets using Adobe Photoshop and Illustrator for campus events, student conferences, and library programs.
+            Creating posters, banners, and digital assets using Adobe Photoshop and Canva for campus events, student conferences, and library programs.
           </p>
         </div>
       </div>
@@ -46,7 +46,7 @@
         <div class="flex-1">
           <h3 class="font-bold text-blue-950 text-xs">Social Media Content</h3>
           <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">
-            Producing vertical video reels and carousel graphics for Instagram and TikTok feeds and stories.
+            Producing vertical video reels and carousel graphics for Instagram feeds, reels, and stories.
           </p>
         </div>
       </div>

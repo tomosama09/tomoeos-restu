@@ -14,10 +14,10 @@
     <!-- Main Biographical Narrative (Human, Grounded, Zero AI Slop, Zero Em Dash) -->
     <div class="space-y-2.5 leading-relaxed text-slate-700">
       <p>
-        English Language Education graduate from Sanata Dharma University (2026). In 2025, the campus library handed me its social channels with no established roadmap. Over the past year, I directed video production and distribution, taking organic reach past 500,000 views across TikTok and Instagram. More than half the audience discovered the library from outside our existing follower base, reaching over 26,000 unique accounts.
+        English Language Education graduate from Sanata Dharma University (2026). At the campus library, I led social media content production and distribution on Instagram, redesigning the visual feed, researching current trends, and evaluating educational content effectiveness. This strategy generated over 500,000 views and reached more than 26,000 unique accounts (with a 53.8% non-follower discovery rate).
       </p>
       <p>
-        Alongside institutional media strategy, I work as a graphic designer, videographer, and photographer for academic conferences and campus events. My daily production workflow runs through Adobe Photoshop, Illustrator, DaVinci Resolve Studio, Premiere Pro, Lightroom, and OBS Studio for multi-camera live streaming.
+        Alongside institutional content strategy, I work as a graphic designer, videographer, and photographer for academic events and digital publications. My daily production workflow runs through Adobe Photoshop, Canva, DaVinci Resolve Studio, Premiere Pro, Lightroom, and OBS Studio for multi-camera live streaming.
       </p>
     </div>
 
@@ -38,11 +38,11 @@
         </div>
         <div class="flex py-1.5 items-baseline">
           <span class="w-36 shrink-0 text-slate-500 text-[11px]">Production Software:</span>
-          <span class="text-slate-800 font-normal">Adobe Photoshop, Illustrator, Premiere Pro, DaVinci Resolve Studio, Lightroom, OBS Studio</span>
+          <span class="text-slate-800 font-normal">Adobe Photoshop, Canva, Premiere Pro, DaVinci Resolve Studio, Lightroom, OBS Studio</span>
         </div>
         <div class="flex py-1.5 items-baseline">
           <span class="w-36 shrink-0 text-slate-500 text-[11px]">Hardware Environment:</span>
-          <span class="text-slate-800 font-normal">Mirrorless Camera Systems, Wireless Field Audio, Studio Rigging</span>
+          <span class="text-slate-800 font-normal">Mirrorless Camera Systems, Wireless Field Audio</span>
         </div>
       </div>
     </div>

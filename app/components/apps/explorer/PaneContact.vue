@@ -2,7 +2,7 @@
   <div class="p-4 space-y-4 text-slate-800 text-xs">
     <div>
       <h2 class="text-base font-bold text-blue-950 tracking-tight">Contact & Inquiries</h2>
-      <p class="text-xs text-slate-600 mt-0.5">Reach out for collaborations, media production inquiries, or campus event coverage.</p>
+      <p class="text-xs text-slate-600 mt-0.5">Reach out for collaborations or media production inquiries.</p>
     </div>
 
     <!-- Contact Details Card -->

@@ -171,7 +171,7 @@ const processCommand = (cmd: string, originalCmd: string) => {
       type: 'output',
       text: `Core Technical Competencies:
 - Video & Motion: Adobe Premiere Pro, After Effects, DaVinci Resolve
-- Graphic Design: Adobe Photoshop, Illustrator, Brand Identity, Poster Typography
+- Graphic Design: Adobe Photoshop, Canva, Brand Identity, Poster Typography
 - Production: Studio Lighting, Camera Operation, Audio Recording, Live Broadcast Desk`
     })
     return
