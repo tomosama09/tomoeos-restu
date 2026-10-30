@@ -55,7 +55,7 @@
               <!-- Center Album Label -->
               <div class="w-20 h-20 rounded-full border-2 border-white/30 bg-gradient-to-br from-blue-600 via-sky-600 to-indigo-900 flex flex-col items-center justify-center shadow-inner text-white">
                 <span class="text-xl">♫</span>
-                <span class="text-[8px] font-mono opacity-80 uppercase tracking-widest mt-0.5">WMP 12</span>
+                <span class="text-[8px] font-mono opacity-80 uppercase tracking-widest mt-0.5">PLAYER</span>
               </div>
 
               <!-- Center Spindle Hole -->

@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest run"
+    "test": "node tests/content-audit.mjs"
   },
   "dependencies": {
     "nuxt": "^4.6.3",

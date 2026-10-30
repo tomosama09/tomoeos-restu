@@ -121,7 +121,6 @@ const props = defineProps<{
 
 const wm = useWindowManager()
 const { playSound } = useAudioFeedback()
-const activeVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
 const activeIeVideoId = useState<string>('ie-video-id', () => '_yHTgNrsVhQ')
 
 const selectedPhotoIndex = ref<number | null>(null)
