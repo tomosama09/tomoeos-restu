@@ -65,9 +65,19 @@
             target-id="games"
           />
           <DesktopIcon
+            label="Paint"
+            icon="/icons/paint.svg"
+            target-id="paint"
+          />
+          <DesktopIcon
+            label="cmd.exe"
+            icon="/icons/command-prompt.svg"
+            target-id="cmd"
+          />
+          <DesktopIcon
             label="Recycle Bin"
             icon="/icons/bin.webp"
-            target-id=""
+            target-id="recycle"
           />
         </div>
 
@@ -84,6 +94,9 @@
         <NotepadApp />
         <CalculatorApp />
         <GamesApp />
+        <PaintApp />
+        <RecycleBinApp />
+        <CommandPromptApp />
       </div>
 
       <!-- Start Menu Overlay -->
@@ -115,6 +128,9 @@ import TomoePlayer from '~/components/apps/player/TomoePlayer.vue'
 import NotepadApp from '~/components/apps/utilities/NotepadApp.vue'
 import CalculatorApp from '~/components/apps/utilities/CalculatorApp.vue'
 import GamesApp from '~/components/apps/utilities/GamesApp.vue'
+import PaintApp from '~/components/apps/utilities/PaintApp.vue'
+import RecycleBinApp from '~/components/apps/utilities/RecycleBinApp.vue'
+import CommandPromptApp from '~/components/apps/utilities/CommandPromptApp.vue'
 import { useWindowManager } from '~/composables/useWindowManager'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 

@@ -106,6 +106,51 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
     h: 460,
     initialW: 580,
     initialH: 460
+  },
+  paint: {
+    id: 'paint',
+    title: 'Untitled - Paint',
+    icon: '/icons/paint.svg',
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 6,
+    x: 170,
+    y: 60,
+    w: 720,
+    h: 530,
+    initialW: 720,
+    initialH: 530
+  },
+  recycle: {
+    id: 'recycle',
+    title: 'Recycle Bin',
+    icon: '/icons/bin.webp',
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 6,
+    x: 180,
+    y: 75,
+    w: 640,
+    h: 420,
+    initialW: 640,
+    initialH: 420
+  },
+  cmd: {
+    id: 'cmd',
+    title: 'Command Prompt',
+    icon: '/icons/command-prompt.svg',
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 6,
+    x: 200,
+    y: 85,
+    w: 640,
+    h: 410,
+    initialW: 640,
+    initialH: 410
   }
 }
 
