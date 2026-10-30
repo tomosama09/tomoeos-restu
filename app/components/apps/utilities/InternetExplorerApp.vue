@@ -67,7 +67,7 @@
               type="button"
               class="w-7 h-7 flex items-center justify-center rounded hover:bg-white/50 cursor-pointer"
               title="Home"
-              @click="activeIeVideoId = '1AV-MsdP0Zo'"
+              @click="activeIeVideoId = '_yHTgNrsVhQ'"
             >
               <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -286,19 +286,19 @@ import WindowFrame from '~/components/common/WindowFrame.vue'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
 const { playSound } = useAudioFeedback()
-const activeIeVideoId = useState<string>('ie-video-id', () => '1AV-MsdP0Zo')
-const historyStack = ref<string[]>(['1AV-MsdP0Zo'])
+const activeIeVideoId = useState<string>('ie-video-id', () => '_yHTgNrsVhQ')
+const historyStack = ref<string[]>(['_yHTgNrsVhQ'])
 const playerKey = ref(1)
 
 const playlist = [
   {
-    id: '1AV-MsdP0Zo',
-    title: 'EWD Official Trailer',
-    category: 'Trailer',
+    id: '_yHTgNrsVhQ',
+    title: 'EWD 2023 Aftermovie',
+    category: 'Aftermovie',
     year: '2023',
-    views: '12K views',
-    desc: 'Official trailer for English Wave Days. Directed, filmed, and edited for promotional campaigns.',
-    thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg'
+    views: '21K views',
+    desc: 'Event recap aftermovie covering performances, stage lighting, and audience interactions.',
+    thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg'
   },
   {
     id: 'e1N52bWm5d0',
@@ -310,22 +310,22 @@ const playlist = [
     thumb: 'https://img.youtube.com/vi/e1N52bWm5d0/hqdefault.jpg'
   },
   {
+    id: '1AV-MsdP0Zo',
+    title: 'EWD 2023 Trailer',
+    category: 'Trailer',
+    year: '2023',
+    views: '12K views',
+    desc: 'Official trailer for English Wave Days. Directed, filmed, and edited for promotional campaigns.',
+    thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg'
+  },
+  {
     id: 'dkFmQt1pxow',
-    title: '12th Undergraduate Conference',
+    title: 'Undergraduate Conf.',
     category: 'Conference Coverage',
     year: '2024',
     views: '15K views',
-    desc: 'Complete conference documentation and highlight video for the 12th Undergraduate Conference.',
+    desc: 'Complete conference documentation and highlight video for the Undergraduate Conference.',
     thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg'
-  },
-  {
-    id: '_yHTgNrsVhQ',
-    title: 'EWD 2023 Aftermovie',
-    category: 'Aftermovie',
-    year: '2023',
-    views: '21K views',
-    desc: 'Event recap aftermovie covering performances, stage lighting, and audience interactions.',
-    thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg'
   }
 ]
 

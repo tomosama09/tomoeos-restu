@@ -3,6 +3,17 @@
     <div class="flex flex-col h-full bg-slate-950 text-white select-none overflow-hidden">
       <!-- Player Video Area -->
       <div class="flex-1 bg-black flex items-center justify-center relative min-h-0">
+        <!-- Open in Internet Explorer Button -->
+        <button
+          type="button"
+          class="absolute top-2.5 right-2.5 z-10 px-2.5 py-1 bg-black/70 hover:bg-blue-950/90 border border-white/30 rounded-full text-[11px] font-semibold text-slate-200 hover:text-white flex items-center gap-1.5 backdrop-blur-md transition-all cursor-pointer shadow-lg"
+          title="Watch in Internet Explorer"
+          @click="openInIe"
+        >
+          <img src="/icons/internet-explorer.svg" alt="" class="w-3.5 h-3.5 object-contain" />
+          <span>Watch in Internet Explorer</span>
+        </button>
+
         <!-- Online State: YouTube Embed -->
         <iframe
           v-if="isOnline && currentVideoId"
@@ -57,17 +68,20 @@
 import { ref, onMounted } from 'vue'
 import { useState } from '#imports'
 import WindowFrame from '~/components/common/WindowFrame.vue'
+import { useWindowManager } from '~/composables/useWindowManager'
 import { useAudioFeedback } from '~/composables/useAudioFeedback'
 
+const wm = useWindowManager()
 const { playSound } = useAudioFeedback()
 const isOnline = ref(true)
-const currentVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
+const currentVideoId = useState<string>('tomoe-active-video', () => '_yHTgNrsVhQ')
+const activeIeVideoId = useState<string>('ie-video-id', () => '_yHTgNrsVhQ')
 
 const playlist = [
-  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', category: 'Trailer', year: '2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', category: 'Aftermovie', year: '2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' },
   { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', category: 'Trailer', year: '2024', thumb: 'https://img.youtube.com/vi/e1N52bWm5d0/hqdefault.jpg' },
-  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', category: 'Conference Coverage', year: '2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' },
-  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', category: 'Aftermovie', year: '2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' }
+  { id: '1AV-MsdP0Zo', title: 'EWD 2023 Trailer', category: 'Trailer', year: '2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: 'dkFmQt1pxow', title: 'Undergraduate Conf.', category: 'Conference Coverage', year: '2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' }
 ]
 
 onMounted(() => {
@@ -81,5 +95,11 @@ onMounted(() => {
 const selectVideo = (id: string) => {
   playSound('click')
   currentVideoId.value = id
+}
+
+const openInIe = () => {
+  playSound('click')
+  activeIeVideoId.value = currentVideoId.value
+  wm.openWindow('ie')
 }
 </script>

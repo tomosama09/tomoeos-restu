@@ -122,15 +122,15 @@ const props = defineProps<{
 const wm = useWindowManager()
 const { playSound } = useAudioFeedback()
 const activeVideoId = useState<string>('tomoe-active-video', () => '1AV-MsdP0Zo')
-const activeIeVideoId = useState<string>('ie-video-id', () => '1AV-MsdP0Zo')
+const activeIeVideoId = useState<string>('ie-video-id', () => '_yHTgNrsVhQ')
 
 const selectedPhotoIndex = ref<number | null>(null)
 
 const videoList = [
-  { id: '1AV-MsdP0Zo', title: 'EWD Official Trailer', sub: 'YouTube • Trailer • 2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', sub: 'YouTube • Aftermovie • 2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' },
   { id: 'e1N52bWm5d0', title: 'EAD 2024 Trailer', sub: 'YouTube • Trailer • 2024', thumb: 'https://img.youtube.com/vi/e1N52bWm5d0/hqdefault.jpg' },
-  { id: 'dkFmQt1pxow', title: '12th Undergraduate Conference', sub: 'YouTube • Conference Coverage • 2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' },
-  { id: '_yHTgNrsVhQ', title: 'EWD 2023 Aftermovie', sub: 'YouTube • Aftermovie • 2023', thumb: 'https://img.youtube.com/vi/_yHTgNrsVhQ/hqdefault.jpg' }
+  { id: '1AV-MsdP0Zo', title: 'EWD 2023 Trailer', sub: 'YouTube • Trailer • 2023', thumb: 'https://img.youtube.com/vi/1AV-MsdP0Zo/hqdefault.jpg' },
+  { id: 'dkFmQt1pxow', title: 'Undergraduate Conf.', sub: 'YouTube • Conference Coverage • 2024', thumb: 'https://img.youtube.com/vi/dkFmQt1pxow/hqdefault.jpg' }
 ]
 
 const pictureList = [
