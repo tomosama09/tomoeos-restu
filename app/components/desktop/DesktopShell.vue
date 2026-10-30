@@ -39,7 +39,7 @@
             target-id="ie"
           />
           <DesktopIcon
-            label="Media Player"
+            label="Windows Media Player"
             icon="/icons/folder-videos.webp"
             target-id="player"
           />

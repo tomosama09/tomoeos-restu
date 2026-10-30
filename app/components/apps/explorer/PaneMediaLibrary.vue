@@ -7,7 +7,7 @@
         <p class="text-xs text-slate-600 mt-0.5">
           <template v-if="category === 'videos'">Showreel tracks. Click to watch in Internet Explorer.</template>
           <template v-else-if="category === 'pictures'">Selected Work: Promotional and literacy poster designs for the Sanata Dharma University Library.</template>
-          <template v-else>Official curriculum vitae document.</template>
+          <template v-else>Curriculum vitae document.</template>
         </p>
       </div>
       <span class="text-[10px] text-slate-500 font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
@@ -44,7 +44,7 @@
         <img src="/icons/pdf.svg" alt="" class="w-9 h-9 object-contain shrink-0" />
         <div class="flex-1 min-w-0">
           <div class="text-xs font-bold text-blue-950">Restu_Utomo_CV.pdf</div>
-          <div class="text-[11px] text-slate-500">PDF Document • Official Curriculum Vitae (96 KB)</div>
+          <div class="text-[11px] text-slate-500">PDF Document • Curriculum Vitae (96 KB)</div>
         </div>
         <a
           href="/Restu_Utomo_CV.pdf"

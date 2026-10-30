@@ -49,7 +49,7 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
   },
   player: {
     id: 'player',
-    title: 'Media Player',
+    title: 'Windows Media Player',
     icon: '/icons/folder-videos.webp',
     isOpen: false,
     isMinimized: false,

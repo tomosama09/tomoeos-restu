@@ -173,19 +173,19 @@ const isAllPrograms = ref(false)
 const apps = [
   { id: 'explorer', title: 'Documents', desc: 'Portfolio documents & archives', icon: '/icons/folder-docs.webp' },
   { id: 'ie', title: 'Internet Explorer', desc: 'Browse web & watch YouTube', icon: '/icons/internet-explorer.svg' },
-  { id: 'player', title: 'Media Player', desc: 'Video showreel player', icon: '/icons/folder-videos.webp' },
+  { id: 'player', title: 'Windows Media Player', desc: 'Audio & Music Player', icon: '/icons/folder-videos.webp' },
   { id: 'notepad', title: 'Notepad', desc: 'Welcome.txt memo', icon: '/icons/welcome-note.svg' },
   { id: 'paint', title: 'Paint', desc: 'Creative canvas & sketch', icon: '/icons/paint.svg' },
   { id: 'cmd', title: 'Command Prompt', desc: 'Windows command processor', icon: '/icons/command-prompt.svg' },
   { id: 'calculator', title: 'Calculator', desc: 'Standard desktop calculator', icon: '/icons/calc.webp' },
   { id: 'games', title: 'Games', desc: 'Classic desktop games collection', icon: '/icons/games.webp' },
-  { id: 'resume', title: 'Curriculum Vitae', desc: 'Official PDF Document', icon: '/icons/pdf.svg', actionUrl: '/Restu_Utomo_CV.pdf' }
+  { id: 'resume', title: 'Curriculum Vitae', desc: 'PDF Document', icon: '/icons/pdf.svg', actionUrl: '/Restu_Utomo_CV.pdf' }
 ]
 
 const allProgramList = [
   { id: 'explorer', title: 'Documents', icon: '/icons/folder-docs.webp' },
   { id: 'ie', title: 'Internet Explorer', icon: '/icons/internet-explorer.svg' },
-  { id: 'player', title: 'Media Player', icon: '/icons/folder-videos.webp' },
+  { id: 'player', title: 'Windows Media Player', icon: '/icons/folder-videos.webp' },
   { id: 'notepad', title: 'Notepad', icon: '/icons/welcome-note.svg' },
   { id: 'paint', title: 'Paint', icon: '/icons/paint.svg' },
   { id: 'cmd', title: 'Command Prompt', icon: '/icons/command-prompt.svg' },

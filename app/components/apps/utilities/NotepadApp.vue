@@ -35,22 +35,23 @@ const DEFAULT_TEXT = `Hello!
 
 Welcome to my digital workspace. I am Restu Utomo, a graphic designer, videographer, and photographer based in Yogyakarta, and a 2026 graduate of Sanata Dharma University.
 
-I built this portfolio operating system inspired by late-2000s desktop interfaces. Over the past two years, my creative direction and video documentation generated 500,000+ organic views across 26,000+ unique accounts (53.8% non-follower discovery).
+I built this portfolio operating system inspired by late-2000s desktop interfaces.
 
 Quick navigation:
 - Documents: Complete case studies, posters, and background
-- Internet Explorer / Media Player: Video showreels directly on YouTube
+- Internet Explorer: Video showreels directly on YouTube
+- Media Player: Music player with retro visualizer
 - Paint: Canvas sketching tools
 - Games: Classic desktop games
 - Command Prompt: Terminal navigation
-- Resume: Official CV download via desktop or Start Menu
+- Resume: CV download via desktop or Start Menu
 
 Reach me anytime at rstt.tomo@gmail.com.
 
 Warm regards,
 Restu Utomo`
 
-const STORAGE_KEY = 'tomoeos-welcome-txt-v5'
+const STORAGE_KEY = 'tomoeos-welcome-txt-v7'
 const content = ref(DEFAULT_TEXT)
 
 onMounted(() => {
