@@ -60,7 +60,13 @@ if (violations.length > 0) {
 }
 
 // Test 3: Verified metrics and titles
-const paneAbout = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneAbout.vue'), 'utf-8')
+function findComponent(relPath) {
+  const p1 = path.join(baseDir, 'app', relPath)
+  if (fs.existsSync(p1)) return fs.readFileSync(p1, 'utf-8')
+  return fs.readFileSync(path.join(baseDir, relPath), 'utf-8')
+}
+
+const paneAbout = findComponent('components/apps/explorer/PaneAbout.vue')
 const checks = [
   ['Graphic Designer, Videographer & Photographer', 'Role Title'],
   ['500,000 views', '500,000+ views metric'],
@@ -76,7 +82,7 @@ for (const [needle, label] of checks) {
   }
 }
 
-const paneExp = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneExperience.vue'), 'utf-8')
+const paneExp = findComponent('components/apps/explorer/PaneExperience.vue')
 if (!paneExp.includes('Sanata Dharma University Library')) {
   console.error(`❌ FAIL: Missing USD Library in PaneExperience`)
   failures++
@@ -87,7 +93,7 @@ if (!paneExp.includes('Sanata Dharma University Library')) {
   console.log(`✅ PASS: Found USD Library and no LLTC in PaneExperience`)
 }
 
-const paneContact = fs.readFileSync(path.join(baseDir, 'components/apps/explorer/PaneContact.vue'), 'utf-8')
+const paneContact = findComponent('components/apps/explorer/PaneContact.vue')
 if (!paneContact.includes('rstt.tomo@gmail.com')) {
   console.error(`❌ FAIL: Missing updated email rstt.tomo@gmail.com in PaneContact`)
   failures++
