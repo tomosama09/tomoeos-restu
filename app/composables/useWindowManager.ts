@@ -100,12 +100,12 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
     isMinimized: false,
     isMaximized: false,
     zIndex: 6,
-    x: 190,
-    y: 80,
-    w: 580,
-    h: 460,
-    initialW: 580,
-    initialH: 460
+    x: 180,
+    y: 70,
+    w: 760,
+    h: 560,
+    initialW: 760,
+    initialH: 560
   },
   paint: {
     id: 'paint',
@@ -116,11 +116,11 @@ const DEFAULT_WINDOWS: Record<string, WindowState> = {
     isMaximized: false,
     zIndex: 6,
     x: 170,
-    y: 60,
-    w: 720,
-    h: 530,
-    initialW: 720,
-    initialH: 530
+    y: 50,
+    w: 780,
+    h: 580,
+    initialW: 780,
+    initialH: 580
   },
   recycle: {
     id: 'recycle',
