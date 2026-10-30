@@ -25,7 +25,6 @@
 
     <!-- Logon Footer -->
     <div class="aero-logon-footer">
-      <div class="aero-logon-brand">TomoeOS</div>
       <button
         type="button"
         class="aero-logon-power cursor-pointer hover:bg-blue-900/60"
