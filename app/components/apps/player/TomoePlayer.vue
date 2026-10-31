@@ -318,7 +318,7 @@ const volume = ref(0.8)
 const isMuted = ref(false)
 const isShuffle = ref(false)
 const isLoop = ref(false)
-const showPlaylist = ref(true)
+const showPlaylist = ref(false)
 
 const currentTrack = computed(() => playlist[currentTrackIndex.value])
 

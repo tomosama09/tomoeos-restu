@@ -1,8 +1,8 @@
 <template>
   <WindowFrame id="explorer" title="Documents" icon="/icons/folder-docs.webp">
     <div class="flex flex-col h-full overflow-hidden select-none">
-      <!-- Explorer Menubar -->
-      <div class="explorer-menubar shrink-0 bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300/80 px-2 py-0.5 flex items-center gap-3 text-xs text-slate-700">
+      <!-- Explorer Menubar (Hidden on mobile) -->
+      <div class="explorer-menubar hidden md:flex shrink-0 bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300/80 px-2 py-0.5 items-center gap-3 text-xs text-slate-700">
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'about'">File</button>
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'services'">Edit</button>
         <button type="button" class="menubar-item hover:bg-white/80 px-1.5 py-0.5 rounded cursor-pointer" @click="currentNav = 'experience'">View</button>

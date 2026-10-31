@@ -26,8 +26,8 @@
 
       <!-- Main Desktop Workspace Area -->
       <div class="flex-1 relative overflow-hidden">
-        <!-- Desktop Icons Column Grid (Exact 4 icons requested: Documents, Internet Explorer, Resume, Recycle Bin) -->
-        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-col gap-3 sm:gap-4 z-10">
+        <!-- Desktop Icons: Responsive Grid on Mobile, Classic Column on Desktop -->
+        <div class="absolute top-4 left-4 sm:top-6 sm:left-6 grid grid-cols-3 gap-y-3.5 gap-x-2 w-[270px] sm:flex sm:flex-col sm:w-auto sm:gap-4 z-10">
           <DesktopIcon
             label="Documents"
             icon="/icons/folder-docs.webp"
@@ -39,15 +39,25 @@
             target-id="ie"
           />
           <DesktopIcon
+            label="Media Player"
+            icon="/icons/wmp.svg"
+            target-id="player"
+          />
+          <DesktopIcon
+            label="Paint"
+            icon="/icons/paint.svg"
+            target-id="paint"
+          />
+          <DesktopIcon
+            label="Games"
+            icon="/icons/games.webp"
+            target-id="games"
+          />
+          <DesktopIcon
             label="Resume.pdf"
             icon="/icons/pdf.svg"
             target-id=""
             action-url="/Restu_Utomo_CV.pdf"
-          />
-          <DesktopIcon
-            label="Recycle Bin"
-            icon="/icons/bin.webp"
-            target-id="recycle"
           />
         </div>
 
@@ -163,7 +173,8 @@ const handleLogin = () => {
   playStartupChime()
   osPhase.value = 'desktop'
   setTimeout(() => {
-    wm.openWindow('notepad')
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    wm.openWindow('notepad', isMobile)
   }, 250)
 }
 

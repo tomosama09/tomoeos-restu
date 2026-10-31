@@ -158,11 +158,13 @@ const explorerNav = useState<string>('explorer-nav', () => 'about')
 const searchQuery = ref('')
 const isAllPrograms = ref(false)
 
-// Left Pinned Apps: Only Games, Paint, and Media Player
+// Left Pinned Apps
 const apps = [
-  { id: 'games', title: 'Games', desc: 'Classic desktop games collection', icon: '/icons/games.webp' },
+  { id: 'explorer', title: 'Documents', desc: 'Portfolio, case studies & posters', icon: '/icons/folder-docs.webp' },
+  { id: 'ie', title: 'Internet Explorer', desc: 'Video Showreel on YouTube', icon: '/icons/internet-explorer.svg' },
+  { id: 'player', title: 'Media Player', desc: 'Audio & Music Player', icon: '/icons/wmp.svg' },
   { id: 'paint', title: 'Paint', desc: 'Creative canvas & sketch', icon: '/icons/paint.svg' },
-  { id: 'player', title: 'Media Player', desc: 'Audio & Music Player', icon: '/icons/wmp.svg' }
+  { id: 'games', title: 'Games', desc: 'Classic desktop games collection', icon: '/icons/games.webp' }
 ]
 
 // All Programs: Full list of all apps
@@ -199,14 +201,16 @@ const launchApp = (id: string, actionUrl?: string) => {
     window.open(actionUrl, '_blank')
     return
   }
-  wm.openWindow(id)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  wm.openWindow(id, isMobile)
 }
 
 const openExplorerNav = (nav: 'about' | 'documents' | 'pictures' | 'videos') => {
   playSound('click')
   emit('close')
   explorerNav.value = nav
-  wm.openWindow('explorer')
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  wm.openWindow('explorer', isMobile)
 }
 
 const handleShutdown = () => {

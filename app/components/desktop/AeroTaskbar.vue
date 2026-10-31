@@ -129,16 +129,17 @@ const isActive = (id: string) => {
 const handleTaskClick = (id: string) => {
   const win = wm.windows.value[id]
   if (!win) return
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   if (win.isMinimized) {
     playSound('restore')
-    wm.bringToFront(id)
+    wm.bringToFront(id, isMobile)
   } else if (wm.activeWindowId.value === id) {
     playSound('minimize')
     wm.minimizeWindow(id)
   } else {
     playSound('click')
-    wm.bringToFront(id)
+    wm.bringToFront(id, isMobile)
   }
 }
 

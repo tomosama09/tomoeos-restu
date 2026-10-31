@@ -162,21 +162,35 @@ export function useWindowManager() {
   const activeWindowId = useState<string | null>('wm-active-id', () => 'explorer')
   const maxZIndex = useState<number>('wm-max-z', () => 10)
 
-  const bringToFront = (id: string) => {
+  const bringToFront = (id: string, isMobile = false) => {
     const win = windows.value[id]
     if (!win) return
+    if (isMobile) {
+      for (const [wId, w] of Object.entries(windows.value)) {
+        if (wId !== id && w.isOpen) {
+          w.isMinimized = true
+        }
+      }
+    }
     maxZIndex.value += 1
     win.zIndex = maxZIndex.value
     win.isMinimized = false
     activeWindowId.value = id
   }
 
-  const openWindow = (id: string) => {
+  const openWindow = (id: string, isMobile = false) => {
     const win = windows.value[id]
     if (!win) return
+    if (isMobile) {
+      for (const [wId, w] of Object.entries(windows.value)) {
+        if (wId !== id && w.isOpen) {
+          w.isMinimized = true
+        }
+      }
+    }
     win.isOpen = true
     win.isMinimized = false
-    bringToFront(id)
+    bringToFront(id, isMobile)
   }
 
   const closeWindow = (id: string) => {

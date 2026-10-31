@@ -7,7 +7,7 @@
     :class="[
       isActive ? 'active-window shadow-2xl' : 'opacity-95 shadow-md',
       win.isMinimized ? 'hidden' : 'flex',
-      (isMobile || win.isMaximized) ? '!inset-0 !w-full !h-[calc(100dvh-40px)] !rounded-none !top-0 !left-0 border-x-0 border-t-0' : ''
+      (isMobile || win.isMaximized) ? '!inset-0 !w-full !h-[calc(100dvh-40px)] !rounded-none !top-0 !left-0 border-x-0 border-t-0 bg-[#eef4fb] !backdrop-blur-none' : ''
     ]"
     :style="windowStyle"
     @pointerdown="onWindowPointerDown"
@@ -15,6 +15,7 @@
     <!-- Titlebar -->
     <div
       class="aero-titlebar win-header shrink-0 flex items-center justify-between px-2.5 py-1.5 cursor-move select-none"
+      :class="isMobile ? '!bg-gradient-to-b !from-[#f5f9fd] !via-[#e7f1fb] !to-[#d4e4f5] border-b border-[#a9c7e8]' : ''"
       @pointerdown="onTitlebarPointerDown"
       @dblclick="toggleMaximize"
     >
@@ -148,7 +149,7 @@ const windowStyle = computed(() => {
 })
 
 const onWindowPointerDown = () => {
-  wm.bringToFront(props.id)
+  wm.bringToFront(props.id, isMobile.value)
 }
 
 const handleMinimize = () => {

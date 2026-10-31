@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="group flex flex-col items-center justify-start p-1 rounded-md w-16 text-center transition-all cursor-pointer select-none focus:outline-none"
+    class="group flex flex-col items-center justify-start p-1.5 sm:p-1 rounded-md w-[76px] sm:w-16 text-center transition-all cursor-pointer select-none focus:outline-none"
     :class="[
       isSelected
         ? 'bg-blue-400/35 border border-blue-200/80 shadow-inner'
@@ -18,7 +18,7 @@
 
     <!-- Label -->
     <span
-      class="mt-1 text-[11px] font-medium text-white leading-tight drop-shadow-[0_1px_3px_rgba(0,15,45,0.95)] px-1 py-0.5 rounded truncate max-w-[64px]"
+      class="mt-1 text-[10px] sm:text-[11px] font-medium text-white leading-tight drop-shadow-[0_1px_3px_rgba(0,15,45,0.95)] px-1 py-0.5 rounded break-words max-w-[74px] line-clamp-2"
       :class="isSelected ? 'bg-blue-600/80 text-white' : 'group-hover:bg-blue-600/40'"
     >
       {{ label }}
@@ -48,6 +48,7 @@ const handleClick = () => {
     window.open(props.actionUrl, '_blank')
     return
   }
-  wm.openWindow(props.targetId)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  wm.openWindow(props.targetId, isMobile)
 }
 </script>
