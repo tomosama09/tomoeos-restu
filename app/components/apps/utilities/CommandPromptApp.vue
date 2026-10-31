@@ -148,8 +148,8 @@ const processCommand = (cmd: string, originalCmd: string) => {
 10/30/2026  12:00 PM    <DIR>          Pictures
 10/30/2026  12:00 PM    <DIR>          Videos
 10/30/2026  09:00 AM             1,420 Welcome.txt
-10/28/2026  02:15 PM            98,206 Restu_Utomo_CV.pdf
-               2 File(s)         99,626 bytes
+10/30/2026  01:40 PM            93,255 Restu_Utomo_CV.pdf
+               2 File(s)         94,675 bytes
                3 Dir(s)  124,432,189,440 bytes free`
     })
     return

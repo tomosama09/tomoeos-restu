@@ -44,7 +44,7 @@
         <img src="/icons/pdf.svg" alt="" class="w-9 h-9 object-contain shrink-0" />
         <div class="flex-1 min-w-0">
           <div class="text-xs font-bold text-blue-950">Restu_Utomo_CV.pdf</div>
-          <div class="text-[11px] text-slate-500">PDF Document • Curriculum Vitae (96 KB)</div>
+          <div class="text-[11px] text-slate-500">PDF Document • Curriculum Vitae (93 KB)</div>
         </div>
         <a
           href="/Restu_Utomo_CV.pdf"
